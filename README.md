@@ -1,7 +1,7 @@
 Angular 2 Boilerplate
-https://github.com/steveblue/angular-boilerplate/
+https://github.com/steveblue/ng2-boilerplate
 
-This project is starter code for a web app built with Angular 1.4.
+This project is starter code for a web app built with Angular 2, based off my previous angular-boilerplate.
 
 ## Dependencies ##
 
@@ -48,7 +48,7 @@ bower install
 In the project root directory, this command will set up node_modules folder and various dev dependencies. If you do not have ownership rights on the folders that will be created, npm or bower could throw an error. If bower fails to run, `bower install`.
 
 
-Duplicate the file `/settings/config-local.json` and rename the new file `/settings/local/config.json`. This will establish the settings of the local environment.
+Duplicate the file `/settings/local-config.json` and rename the new file `/settings/local/config.json`. This will establish the settings of the local environment.
 
 After that, you should be able to run `gulp dev` in the root directory of the repo and visit localhost:9000/ in your browser.
 
