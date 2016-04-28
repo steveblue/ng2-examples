@@ -1,0 +1,8 @@
+[{
+    "HOST": "localhost",
+    "HOST_PORT": "9000",
+    "API_HOST": "http://example.com",
+    "LIVERELOAD_PORT": "35729",
+    "IS_PRODUCTION": false,
+    "DEBUG": true
+}]

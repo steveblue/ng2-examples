@@ -1,0 +1,59 @@
+{
+  "name": "ng-amd-boilerplate",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A boilerplate that use AMD modules with Angular",
+  "keywords": "",
+  "homepage": "",
+  "bugs": {
+    "url": "",
+    "email": ""
+  },
+  "license": "../license",
+  "contributors": [
+    "Steve Belovarich <steveblue@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "scripts": {
+    "postinstall": [
+      "node_modules/.bin/bower install"
+    ]
+  },
+  "dependencies": {
+    "angular2": "^2.0.0-beta.16",
+    "bower": "=1.4.1",
+    "connect": "=3.2.0",
+    "del": "=1.2.0",
+    "es6-shim": "^0.35.0",
+    "gulp": "=3.9.0",
+    "gulp-combine-media-queries": "=0.2.0",
+    "gulp-compass": "^2.1.0",
+    "gulp-concat": "=2.6.0",
+    "gulp-group-css-media-queries": "^1.1.0",
+    "gulp-jshint": "=1.11.0",
+    "gulp-livereload": "3.8.0",
+    "gulp-notify": "=2.2.0",
+    "gulp-plumber": "=1.0.1",
+    "gulp-rename": "=1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-symlink": "=2.1.0",
+    "gulp-uglify": "=1.4.1",
+    "gulp-util": "=3.0.5",
+    "gulp-watch": "=4.2.4",
+    "jshint-stylish": "=2.0.0",
+    "node-bourbon": "^4.2.3",
+    "node-neat": "^1.7.2",
+    "node-notifier": "=4.2.1",
+    "require-dir": "=0.3.0",
+    "run-sequence": "=1.1.0",
+    "rxjs": "^5.0.0-beta.7",
+    "st": "=0.5.4",
+    "systemjs": "^0.19.26"
+  },
+  "devDependencies": {
+    "gulp-sass": "^2.3.1"
+  }
+}

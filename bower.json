@@ -1,0 +1,14 @@
+{
+  "name": "ng-amd-boilerplate",
+  "version": "1.0.0",
+  "license": "license",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+      "headjs": "=1.0.3"
+  }
+}

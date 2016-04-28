@@ -1,0 +1,14 @@
+.idea
+.DS_Store
+\#.DS_Store#
+node_modules
+bower_components
+build
+*.swp
+*.swo
+*.bak
+*.log
+#.DS_Store#
+.sass-cache
+/settings/local/config.json
+/settings/prod/config.json
