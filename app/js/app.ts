@@ -9,7 +9,7 @@ import { Component } from "angular2/core";
 `
 })
 class HelloWorld {
-  names: string[];
+  names: Array<string>;
   constructor() {
     this.names = ['Ari', 'Carlos', 'Felipe', 'Nate'];
   }

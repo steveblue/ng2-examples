@@ -1,0 +1,26 @@
+@import "neat-helpers"; // or "neat-helpers" when in Rails
+
+// Change the grid settings
+$visual_grid: false;
+$visual-grid-color: red;
+$visual-grid-index: back;
+$visual-grid-opacity: 0.4;
+$max-width: 100%;
+
+// Define your breakpoints
+$ultrahd: new-breakpoint(min-width 1921px 16);
+$large: new-breakpoint(min-width 1366px 16);
+$medium: new-breakpoint(min-width 1025px max-width 1366px 16);
+$small: new-breakpoint(min-width 769px max-width 1024px 12);
+$mobile: new-breakpoint(min-width 0px max-width 768px 12);
+$tablet: new-breakpoint(min-width 569px max-width 768px 12);
+$phablet: new-breakpoint(min-width 321px max-width 568px 4);
+$mobile: new-breakpoint(max-width 320px 4);
+
+// ------------------------------------------------------------
+// Omega Reset Mixin
+// ------------------------------------------------------------
+@mixin omega-reset($nth) {
+  &:nth-child(#{$nth}) { margin-right: flex-gutter($grid-columns, $gutter); }
+  &:nth-child(#{$nth}+1) { clear: none }
+}
