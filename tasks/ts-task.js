@@ -3,7 +3,7 @@ var gulp    = require('gulp'),
     ts = require('gulp-typescript'),
     merge = require('merge2'),
     paths     = require('../config.paths'),
-    tsProject = ts.createProject('app/tsconfig.json'),
+    //tsProject = ts.createProject('app/tsconfig.json'),
 
 
 // Paths
@@ -15,33 +15,33 @@ var gulp    = require('gulp'),
 
 // Options
 
-// var tsProject = ts.createProject({
-// 	declaration: true,
-// 	noExternalResolve: true,
-//   module: 'commonjs',
-//   target: 'es5',
-//   noImplicitAny: false,
-//   sourceMap: false,
-//   exclude: [
-//       'node_modules'
-//   ]
-// });
+var tsProject = ts.createProject({
+  emitDecoratorMetadata: true,
+  experimentalDecorators: true,
+  module: 'commonjs',
+  target: 'es5',
+  noImplicitAny: false,
+  sourceMap: false
+});
 
 gulp.task('ts:app', function() {
-	// var tsResult = gulp.src(['app/*.ts', 'app/**/*.ts'])
-	// 				.pipe(ts(tsProject));
-  //
-	// return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
-	// 	tsResult.dts.pipe(gulp.dest(paths.rootDir+'/app/def')),
-	// 	tsResult.js.pipe(gulp.dest(paths.rootDir+'/app'))
-	// ]);
+	var tsResult = gulp.src(['node_modules/angular2/ts/typings/node/node.d.ts',
+                            'node_modules/angular2/typings/browser.d.ts',
+                            'app/*.ts', 
+                            'app/**/*.ts'])
+					.pipe(ts(tsProject));
 
-  return gulp.src(['node_modules/angular2/ts/typings/node/node.d.ts',
-                   'node_modules/angular2/typings/browser.d.ts',
-                   'app/*.ts', 
-                   'app/**/*.ts'])
-    .pipe(ts(tsProject.compilerOptions))
-    .pipe(gulp.dest(paths.rootDir+'/app'));
+	return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
+		tsResult.dts.pipe(gulp.dest(paths.rootDir+'/app/def')),
+		tsResult.js.pipe(gulp.dest(paths.rootDir+'/app'))
+	]);
+
+  // return gulp.src(['node_modules/angular2/ts/typings/node/node.d.ts',
+  //                  'node_modules/angular2/typings/browser.d.ts',
+  //                  'app/*.ts',
+  //                  'app/**/*.ts'])
+  //   .pipe(ts(tsProject.compilerOptions))
+  //   .pipe(gulp.dest(paths.rootDir+'/app'));
 
 });
 
