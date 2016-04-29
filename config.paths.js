@@ -41,6 +41,13 @@ module.exports = {
     app: ['app/**/*.js']
   },
 
+  ts : {
+    src: ['node_modules/angular2/ts/typings/node/node.d.ts',
+          'node_modules/angular2/typings/browser.d.ts',
+          'app/*.ts',
+          'app/**/*.ts']
+  },
+
   html : {
     app: ['app/**/*.html', 'app/*.html']
   },

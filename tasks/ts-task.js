@@ -2,19 +2,11 @@
 var gulp    = require('gulp'),
     ts = require('gulp-typescript'),
     merge = require('merge2'),
-    paths     = require('../config.paths'),
-    //tsProject = ts.createProject('app/tsconfig.json'),
-
-
-// Paths
-    root        = paths.rootDir,
-    devDir      = paths.devDir,
-    prodDir     = paths.prodDir,
-    lintPaths   = paths.jshint;
+    paths     = require('../config.paths');
 
 
 // Options
-
+//var tsProject = ts.createProject('app/tsconfig.json'),
 var tsProject = ts.createProject({
   emitDecoratorMetadata: true,
   experimentalDecorators: true,
@@ -25,10 +17,8 @@ var tsProject = ts.createProject({
 });
 
 gulp.task('ts:app', function() {
-	var tsResult = gulp.src(['node_modules/angular2/ts/typings/node/node.d.ts',
-                            'node_modules/angular2/typings/browser.d.ts',
-                            'app/*.ts', 
-                            'app/**/*.ts'])
+
+	var tsResult = gulp.src(paths.ts.src)
 					.pipe(ts(tsProject));
 
 	return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
@@ -36,10 +26,7 @@ gulp.task('ts:app', function() {
 		tsResult.js.pipe(gulp.dest(paths.rootDir+'/app'))
 	]);
 
-  // return gulp.src(['node_modules/angular2/ts/typings/node/node.d.ts',
-  //                  'node_modules/angular2/typings/browser.d.ts',
-  //                  'app/*.ts',
-  //                  'app/**/*.ts'])
+  // return gulp.src(paths.ts.src)
   //   .pipe(ts(tsProject.compilerOptions))
   //   .pipe(gulp.dest(paths.rootDir+'/app'));
 
