@@ -1,5 +1,3 @@
-/// <reference path="node_modules/angular2/ts/typings/node/node.d.ts"/>
-/// <reference path="node_modules/angular2/typings/browser.d.ts"/>
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -15,7 +13,7 @@ var HelloWorld = (function () {
     HelloWorld = __decorate([
         core_1.Component({
             selector: 'hello-world',
-            template: "\n  <div>\n    Hello America\n  </div>\n"
+            template: "\n  <div>\n    Hello ng-conf\n  </div>\n"
         })
     ], HelloWorld);
     return HelloWorld;

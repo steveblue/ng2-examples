@@ -21,7 +21,8 @@ gulp.task('dev:build:local', function(callback){
   runSequence(
     'clean:dev',
     //'jshint',
-    ['sass:dev','symlink:all'],
+
+    [ 'ts', 'sass:dev', 'symlink:all'],
     callback
   );
 });

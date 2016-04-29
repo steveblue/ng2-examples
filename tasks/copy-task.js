@@ -98,7 +98,7 @@ gulp.task('copy:prod:lib', function(){
     .pipe(gulp.dest(lib.prod));
 });
 
-// // Copy lib files for prod
+// Copy lib files for prod
 // gulp.task('copy:prod:lib', function(){
 //   return gulp.src(lib.src, {cwd: root})
 //     .pipe(plumber())

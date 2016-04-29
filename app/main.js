@@ -23,7 +23,7 @@
         }
       });
 
-      System.import('app.js').then(null, console.error.bind(console));
+      System.import('js/app.js').then(null, console.error.bind(console));
 
 
     }); // end .ready()

@@ -75,7 +75,7 @@ gulp.task('server:dev:start', function(callback){
 
   util.log('Local server starting up hosted at: ', util.colors.green(config.HOST));
   util.log('Connect server listening on port: ', util.colors.green(config.HOST_PORT));
-  util.log('Connecting to API at: ', util.colors.green(config.API_HOST));
+  //util.log('Connecting to API at: ', util.colors.green(config.API_HOST));
 
   // Add serve static middleware
   server.use( st(options.dev.st) );
@@ -95,9 +95,10 @@ gulp.task('server:lr', function(done){
 
     gulp.watch(paths.sass.src, ['sass:dev']);
   //  gulp.watch(paths.jshint.app, ['jshint:dev']);
+    gulp.watch(['app/**/*.ts'], ['ts:app']);
     gulp.watch(paths.symlink, ['symlink:reload']);
 
-    gulp.watch([paths.devDir+'/css/styles.css',paths.devDir+'/**/*.js', paths.devDir+'/**/*.html', paths.devDir+'/*.html'], function(event) {
+    gulp.watch([paths.devDir+'/css/styles.css', paths.devDir+'/**/*.js', paths.devDir+'/**/*.html', paths.devDir+'/*.html'], function(event) {
 		gulp.src(event.path)
 			.pipe(livereload());
 	});
