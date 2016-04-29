@@ -95,7 +95,7 @@ gulp.task('server:lr', function(done){
 
     gulp.watch(paths.sass.src, ['sass:dev']);
   //  gulp.watch(paths.jshint.app, ['jshint:dev']);
-    gulp.watch(['app/**/*.ts'], ['ts:app']);
+    gulp.watch(paths.ts.lint, ['ts:lint','ts:app']);
     gulp.watch(paths.symlink, ['symlink:reload']);
 
     gulp.watch([paths.devDir+'/css/styles.css', paths.devDir+'/**/*.js', paths.devDir+'/**/*.html', paths.devDir+'/*.html'], function(event) {

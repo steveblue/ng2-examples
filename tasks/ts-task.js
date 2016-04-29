@@ -1,8 +1,10 @@
 
-var gulp    = require('gulp'),
-    ts = require('gulp-typescript'),
-    merge = require('merge2'),
-    paths     = require('../config.paths');
+var gulp   = require('gulp'),
+    ts     = require('gulp-typescript'),
+    tslint = require('gulp-tslint'),
+    stylish = require('gulp-tslint-stylish'),
+    merge  = require('merge2'),
+    paths  = require('../config.paths');
 
 
 // Options
@@ -14,6 +16,19 @@ var tsProject = ts.createProject({
   target: 'es5',
   noImplicitAny: false,
   sourceMap: false
+});
+
+gulp.task('ts:lint', function() {
+  return gulp.src(paths.ts.lint)
+    .pipe(tslint({
+      configuration: 'tslint.json'
+    }))
+    .pipe(tslint.report(stylish, {
+        emitError: false,
+        sort: true,
+        bell: true,
+        fullPath: true
+      }));
 });
 
 gulp.task('ts:app', function() {
