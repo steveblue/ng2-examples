@@ -12,12 +12,12 @@ var browser_1 = require("angular2/platform/browser");
 var core_1 = require("angular2/core");
 var HelloWorld = (function () {
     function HelloWorld() {
-        this.names = ['Ari', 'Carlos', 'Felipe', 'Nate'];
+        this.message = 'Hello Angular 2!';
     }
     HelloWorld = __decorate([
         core_1.Component({
             selector: 'hello-world',
-            template: "\n  <ul>\n    <li *ngFor=\"#name of names\">Hello {{ name }}</li>\n  </ul>\n"
+            template: "\n  <div>\n    {{ message }}\n  </div>\n"
         }), 
         __metadata('design:paramtypes', [])
     ], HelloWorld);

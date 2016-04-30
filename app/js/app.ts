@@ -3,15 +3,15 @@ import { Component } from "angular2/core";
 @Component({
   selector: 'hello-world',
   template: `
-  <ul>
-    <li *ngFor="#name of names">Hello {{ name }}</li>
-  </ul>
+  <div>
+    {{ message }}
+  </div>
 `
 })
 class HelloWorld {
   names: Array<string>;
   constructor() {
-    this.names = ['Ari', 'Carlos', 'Felipe', 'Nate'];
+    this.message = 'Hello Angular 2!';
   }
 }
 bootstrap(HelloWorld);
