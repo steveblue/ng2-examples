@@ -2,8 +2,11 @@
 var gulp    = require('gulp'),
     plumber = require('gulp-plumber'),
     rename  = require('gulp-rename'),
-    cmq     = require('gulp-group-css-media-queries'),
     sass    = require('gulp-sass'),
+    postcss = require('gulp-postcss'),
+    autoprefixer = require('autoprefixer'),
+    cssnano = require('cssnano'),
+    mqpacker = require('css-mqpacker'),
     neat    = require('node-neat').includePaths,
     notify  = require('gulp-notify'),
     fs      = require('fs'),
@@ -42,6 +45,17 @@ var gulp    = require('gulp'),
     errorNotifier = function(error){
       console.error(error.toString());
       this.emit('end');
+    },
+    processors = {
+      dev: [
+         autoprefixer,
+         mqpacker
+      ],
+      prod: [
+         autoprefixer,
+         cssnano,
+         mqpacker
+      ]
     };
 
 // Default sass task is sass:dev
@@ -56,9 +70,6 @@ gulp.task('sass:prod', ['sass:compile:prod']);
 //   return gulp.src(paths.src)
 //         .pipe(compass(options.dev))
 //         .on('error', errorNotifier)
-//         .pipe(cmq({
-//           log: false
-//         }))
 //         .pipe(gulp.dest(paths.dev));
 // });
 
@@ -66,9 +77,7 @@ gulp.task('sass:compile', function () {
   return gulp.src(paths.src)
     .pipe(plumber())
     .pipe(sass(options.dev))
-    .pipe(cmq({
-      log: false
-    }))
+    .pipe(postcss(processors.dev))
     .pipe(rename('styles.css'))
     .pipe(gulp.dest(paths.dev));
 });
@@ -78,9 +87,7 @@ gulp.task('sass:compile:min', function () {
   return gulp.src(paths.src)
     .pipe(plumber())
     .pipe(sass(options.dev.min))
-    .pipe(cmq({
-      log: false
-    }))
+    .pipe(postcss(processors.prod))
     .pipe(rename('styles.css'))
     .pipe(gulp.dest(paths.dev));
 });
@@ -91,9 +98,7 @@ gulp.task('sass:compile:prod', function () {
   return gulp.src(paths.src)
     .pipe(plumber())
     .pipe(sass(options.prod))
-    .pipe(cmq({
-      log: false
-    }))
+    .pipe(postcss(processors.prod))
     .pipe(rename('styles.css'))
     .pipe(gulp.dest(paths.prod));
 });

@@ -22,7 +22,7 @@ gulp.task('dev:build:local', function(callback){
     'clean:dev',
     //'jshint',
     'ts:lint',
-    [ 'ts', 'sass:dev', 'symlink:all'],
+    [ 'ts:app', 'sass:dev', 'symlink:all'],
     callback
   );
 });

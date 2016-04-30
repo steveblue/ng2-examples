@@ -1,12 +1,16 @@
 // Vendor Dependencies
 @import "bourbon";
-@import "utilities/grid";
+@import "util/grid";
 @import "neat";
-@import "utilities/normalize";
+@import "util/normalize";
 
 // Authored Dependencies
-@import "utilities/colors";
-@import "utilities/fonts";
-@import "utilities/mixins";
-@import "utilities/sprites";
-@import "utilities/media-queries";
+@import "util/variables";
+@import "util/colors";
+@import "util/fonts";
+@import "util/mixins";
+@import "util/sprites";
+@import "util/media";
+
+// Application Styles
+@import "app";
