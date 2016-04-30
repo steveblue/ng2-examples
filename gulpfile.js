@@ -21,8 +21,8 @@ gulp.task('dev:build:local', function(callback){
   runSequence(
     'clean:dev',
     //'jshint',
-    'ts:lint',
-    [ 'ts:app', 'sass:dev', 'symlink:all'],
+    ['ts:lint', 'ts:app'],
+    ['sass:dev', 'symlink:all'],
     callback
   );
 });
@@ -31,6 +31,7 @@ gulp.task('dev:build:local', function(callback){
 gulp.task('dev:build', function(callback){
   runSequence(
     'clean:dev',
+    ['ts:lint', 'ts:app'],
     ['copy:dev', 'copy:dev:lib', 'copy:dev:settings', 'copy:dev:assets'],
     ['sass:dev:min', 'uglify:dev'],
     'server:dev',
@@ -53,6 +54,7 @@ gulp.task('prod', ['prod:build']); // alias prod to prod:build
 gulp.task('prod:build', function(callback){
   runSequence(
     'clean:prod',
+    ['ts:lint', 'ts:app'],
     ['copy:prod', 'copy:prod:lib', 'copy:prod:settings', 'copy:prod:assets'],
     ['sass:prod', 'uglify:prod'],
     callback
