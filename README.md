@@ -29,7 +29,7 @@ npm install -g typescript
 
 ## Typescript ##
 
-The Angular 2 team has chosen to support Typescript and several tutorial authors also prefer writing Typescript for Angular 2 apps. This boilerplate includes gulp tasks that lint and compile Typescript. `tslint.json` in the root directory can be configured to your specifications for linting, while the Typescript config for compilation is found in `config.ts.js`. This config may seem unconventional, however is more stable than using the typical JSON config with gulp-typescript.
+The Angular 2 team has chosen to support Typescript and several tutorial authors also prefer writing Typescript for Angular 2 apps. This boilerplate includes gulp tasks that lint and compile Typescript. `tslint.json` in the root directory can be configured to your specifications for linting. Configure Typescript compilation in `config.ts.js`. This config may seem unconventional, but is necessary at the moment because using `tsconfig.json` with `gulp-typescript` has mixed results. The `gulp-typescript` plugin seems to prefer the `compilerOptions` found in `tsconfig.json`, which is stored in `config.ts.js`.
 
 ## CSS ##
 
@@ -43,7 +43,7 @@ Clone the repo into a local folder.
 Use the following command to clone the repo, replacing [username] with your Github username.
 
 ```
-git clone https://github.com/[username]/angular-boilerplate.git
+git clone https://github.com/[username]/ng2-boilerplate.git
 ```
 
 
@@ -58,14 +58,16 @@ bower install
 
 In the project root directory, this command will set up node_modules folder and various dev dependencies. If you do not have ownership rights on the folders that will be created, npm or bower could throw an error. If bower fails to run, `bower install`.
 
-
-Duplicate the file `/settings/local-config.json` and rename the new file `/settings/local/config.json`. This will establish the settings of the local environment.
+Duplicate the file `/settings/local-config.json` and rename the new file `/settings/local/config.json`. This will establish the settings of the local environment. The same pattern works for production environment.
 
 After that, you should be able to run `gulp dev` in the root directory of the repo and visit localhost:9000/ in your browser.
 
 ```
 localhost:9000
 ```
+
+You may configure host name and port in the `config.json`.
+
 
 ## Notes ##
 
