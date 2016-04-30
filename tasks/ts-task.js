@@ -49,4 +49,4 @@ gulp.task('ts:app', function() {
 
 
 // Lint App Files Default Task
-gulp.task('ts', ['ts:app']);
+//gulp.task('ts', ['ts:app']);
