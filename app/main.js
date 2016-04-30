@@ -9,21 +9,19 @@
       'lib/angular2-polyfills.js',
       'lib/system.src.js',
       'lib/Rx.js',
-      'lib//angular2.dev.js'
+      'lib/angular2.dev.js',
+      'lib/router.dev.js'
     )
     .ready('ALL', function() {
 
 
       System.config({
-        packages: {
-          app: {
-            format: 'register',
-            defaultExtension: 'js'
-          }
-        }
+        transpiler: 'typescript',
+        typescriptOptions: { emitDecoratorMetadata: true },
+        packages: {'src': {defaultExtension: 'js'}}
       });
 
-      System.import('js/app.js').then(null, console.error.bind(console));
+      System.import('./app.js').then(null, console.error.bind(console));
 
 
     }); // end .ready()

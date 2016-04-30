@@ -8,19 +8,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var browser_1 = require("angular2/platform/browser");
 var core_1 = require("angular2/core");
-var HelloWorld = (function () {
-    function HelloWorld() {
-        this.message = 'Hello Angular 2!';
+var About = (function () {
+    function About() {
+        this.message = 'About';
     }
-    HelloWorld = __decorate([
+    About = __decorate([
         core_1.Component({
-            selector: 'hello-world',
             template: "\n  <div>\n    {{ message }}\n  </div>\n"
         }), 
         __metadata('design:paramtypes', [])
-    ], HelloWorld);
-    return HelloWorld;
+    ], About);
+    return About;
 }());
-browser_1.bootstrap(HelloWorld);
+exports.About = About;
