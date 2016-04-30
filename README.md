@@ -71,10 +71,8 @@ You may configure host name and port in the `config.json`.
 
 ## Notes ##
 
-A config file for dev and prod environments is found in `/settings`.
+This boilerplate is the starter code for any Angular Project. It includes a gulp workflow to build and deploy projects for 2 environments, development and production. The main tasks are detailed in gulpfile.js. `gulp dev` will deploy a development server at `localhost:9000`. This task symlinks the files in /app, /assets, etc to /build/www/ and sets up watchers for changes in .html, .css, and .js files.
 
-This boilerplate is the starter code for any Angular Project. It includes a gulp workflow to build and deploy projects for 2 environments, development and production. The main tasks are detailed in gulpfile.js. `gulp dev` will deploy a development server at `localhost:9000`. This task symlinks the files in /app, /assets, etc to /build/www/ and sets up watchers for changes in .html, .css, and .js files. The dev server may fail when changes are made to app.js. Can someone please fix and submit a pull request?
+`gulp prod` will copy all files outlined in config.paths.json to /build/prod/ and create a workable build that can be deployed to a staging / production server. Modify the file globs that are copied in config.paths.json and/or modify the gulp tasks as needed.
 
-`gulp prod` will copy all files outlined in config.paths.json to /build/prod/ and create a workable build that can be deployed to a staging server. You can modify what is copied in config.paths.json and/or modify the gulp tasks as needed.
-
-This project uses a AMD module pattern as a wrapper for virtually all JavaScript files. This allows you to inject external dependencies not handled by Angular dependency injection. head.js is used to inject all dependencies prior to bootstrapping the app. SASS/Bourbon/Neat is included to bootstrap responsive states and includes templates for a responsive grid.
+head.js is used to inject all dependencies prior to bootstrapping the app.
