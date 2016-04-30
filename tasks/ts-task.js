@@ -4,19 +4,13 @@ var gulp   = require('gulp'),
     tslint = require('gulp-tslint'),
     stylish = require('gulp-tslint-stylish'),
     merge  = require('merge2'),
-    paths  = require('../config.paths');
+    paths  = require('../config.paths'),
+    tsConfig = require('../config.ts');
 
 
 // Options
 //var tsProject = ts.createProject('app/tsconfig.json'),
-var tsProject = ts.createProject({
-  emitDecoratorMetadata: true,
-  experimentalDecorators: true,
-  module: 'commonjs',
-  target: 'es5',
-  noImplicitAny: false,
-  sourceMap: false
-});
+var tsProject = ts.createProject(tsConfig);
 
 gulp.task('ts:lint', function() {
   return gulp.src(paths.ts.lint)

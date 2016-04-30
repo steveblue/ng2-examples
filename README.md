@@ -1,11 +1,13 @@
 Angular 2 Boilerplate
 https://github.com/steveblue/ng2-boilerplate
 
-This project is starter code for a web app built with Angular 2, based off my previous angular-boilerplate.
+This project is starter code for a web app built with Angular 2, based off an earlier angular-boilerplate https://github.com/steveblue/angular-boilerplate.
+
+This boilerplate is simple, yet powerful. It includes gulp tasks that lint and compile Typescript, compile SASS to CSS with libsass and PostCSS, and creates build directories for local and production development environments. It also includes a livereload server for local development so you can get up and running quickly.
 
 ## Dependencies ##
 
-You should install these frameworks at a system level before cloning the repo. Homebrew is helpful for installing node.js on a Mac, otherwise all other packages should be handled through npm. Note: if you have previously installed SASS via the gem, uninstall SASS and run the node-sass compiler instead, node-sass is a port of lib-sass and is much faster to compile.
+You should install these frameworks at a system level before cloning the repo. Homebrew is helpful for installing node.js on a Mac, otherwise all other packages should be handled through npm. Note: if you have previously installed SASS via the gem, uninstall SASS and run the node-sass compiler instead, node-sass is a port of libsass.
 
 * [node.js] (http://www.nodejs.org)
 * [bower] (http://bower.io)
@@ -22,7 +24,16 @@ npm install -g bower
 npm install -g node-sass
 npm install -g node-bourbon
 npm install -g gulp
+npm install -g typescript
 ```
+
+## Typescript ##
+
+The Angular 2 team has chosen to support Typescript and several tutorial authors also prefer writing Typescript for Angular 2 apps. This boilerplate includes gulp tasks that lint and compile Typescript. `tslint.json` in the root directory can be configured to your specifications for linting, while the Typescript config for compilation is found in `config.ts.js`. This config may seem unconventional, however is more stable than using the typical JSON config with gulp-typescript.
+
+## CSS ##
+
+Bourbon is a SASS mixin library that has several useful tools for writing SASS, including a responsive grid system and common mixins. While this library provides tools for prefixing styles via mixins, it is recommended to use the default PostCSS autoprefixer task for this purpose, while leveraging other aspects of Bourbon.
 
 ## Github ##
 
