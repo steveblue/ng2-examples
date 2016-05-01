@@ -1,9 +1,21 @@
 // Export TS Config
 module.exports = {
-  emitDecoratorMetadata: true,
-  experimentalDecorators: true,
-  module: 'commonjs',
-  target: 'es5',
-  noImplicitAny: false,
-  sourceMap: false
+  dev:{
+    emitDecoratorMetadata: true,
+    experimentalDecorators: true,
+    module: 'commonjs',
+    target: 'es5',
+    noImplicitAny: false,
+    sourceMap: false,
+    outDir: '/build/www'
+  },
+  prod: {
+    emitDecoratorMetadata: true,
+    experimentalDecorators: true,
+    module: 'commonjs',
+    target: 'es5',
+    noImplicitAny: false,
+    sourceMap: false,
+    outDir: '/build/prod'
+  }
 };
