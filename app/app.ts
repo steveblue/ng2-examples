@@ -3,8 +3,8 @@ import { Component, bind } from 'angular2/core';
 import { ROUTER_PROVIDERS, RouteConfig, RouterOutlet, RouterLink } from 'angular2/router';
 import { LocationStrategy, PathLocationStrategy } from 'angular2/platform/common';
 
-import {About} from 'src/views/about';
-import {Default} from 'src/views/default';
+import {About} from './src/views/about';
+import {Default} from './src/views/default';
 
 // console.log(About);
 
