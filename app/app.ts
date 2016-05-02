@@ -25,7 +25,12 @@ import {Default} from './src/views/default';
   {path:'/about', name: 'About', component: About}
 ])
 
-export class App {}
+export class App {
+  constructor() {
+
+
+  }
+}
 
 bootstrap(App, [
   ROUTER_PROVIDERS,

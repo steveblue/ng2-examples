@@ -10,7 +10,8 @@
       'lib/system.src.js',
       'lib/Rx.js',
       'lib/angular2.dev.js',
-      'lib/router.dev.js'
+      'lib/router.dev.js',
+      'lib/http.dev.js'
     )
     .ready('ALL', function() {
 

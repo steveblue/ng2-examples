@@ -19,6 +19,7 @@ module.exports = {
       'node_modules/rxjs/bundles/Rx.js',
       'node_modules/angular2/bundles/angular2.dev.js',
       'node_modules/angular2/bundles/router.dev.js',
+      'node_modules/angular2/bundles/http.dev.js',
       'bower_components/headjs/dist/1.0.0/head.js',
 
 
@@ -29,7 +30,8 @@ module.exports = {
       'node_modules/systemjs/dist/system.src.js',
       'node_modules/rxjs/bundles/Rx.js',
       'node_modules/angular2/bundles/angular2.dev.js',
-      'node_modules/angular2/bundles/node_modules/angular2/bundles/router.dev.js',
+      'node_modules/angular2/bundles/router.dev.js',
+      'node_modules/angular2/bundles/http.dev.js',
       'bower_components/headjs/dist/1.0.0/head.load.min.js',
 
 
