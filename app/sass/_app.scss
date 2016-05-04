@@ -1,0 +1,40 @@
+body {
+  background: #020202;
+  color: #fdfdfd;
+  font-size: 16px;
+}
+
+.nav__item {
+  display: none;
+}
+
+track-list {
+  display: block;
+  width: 320px;
+  track-item {
+
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    font-weight: 100;
+    font-size: 14px;
+    
+    .track__image {
+      width: 64px;
+      height: auto;
+      img {
+        width: 100%;
+      }
+    }
+    span {
+      padding-right: 20px;
+      &.track__meta {
+        padding-top: 16px;
+      }
+    }
+    &.selected {
+      background: #323232;
+    }
+
+  }
+}

@@ -4,15 +4,15 @@ import { ROUTER_PROVIDERS, RouteConfig, RouterOutlet, RouterLink } from 'angular
 import { LocationStrategy, PathLocationStrategy } from 'angular2/platform/common';
 
 import {About} from './src/views/about';
-import {Default} from './src/views/default';
+import {MusicPlayer} from './src/views/music-player';
 
 // console.log(About);
 
 @Component({
   selector: 'app',
   template: `
-    <a [routerLink]="['./Default']">Home</a>
-	  <a [routerLink]="['./About']">About</a>
+    <a [routerLink]="['./Player']" class="nav__item">Home</a>
+	  <a [routerLink]="['./About']" class="nav__item">About</a>
     <div class="outer-outlet">
       <router-outlet></router-outlet>
     </div>
@@ -21,7 +21,7 @@ import {Default} from './src/views/default';
 })
 
 @RouteConfig([
-  {path:'/', name: 'Default', component: Default},
+  {path:'/', name: 'Player', component: MusicPlayer},
   {path:'/about', name: 'About', component: About}
 ])
 

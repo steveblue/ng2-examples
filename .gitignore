@@ -12,3 +12,4 @@ build
 .sass-cache
 /settings/local/config.json
 /settings/prod/config.json
+/app/assets/music

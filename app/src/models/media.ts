@@ -1,10 +1,10 @@
 export class Media {
    constructor(
-    public id: string,
-    public name: string,
+    public artist: string,
+    public title: string,
+    public url: string,
     public imageUrl: string,
-    public description: string,
-    public rating: number) {
+    public index: number) {
 
-    }   
+    }
 }
