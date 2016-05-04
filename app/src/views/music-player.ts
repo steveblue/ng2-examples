@@ -2,22 +2,25 @@ import { Component } from "angular2/core";
 
 import { Media } from "../models/media";
 import { TrackList } from "../directives/track-list";
+import { AudioPlayer } from '../directives/audio-player';
 
 @Component({
-  directives: [TrackList],
   template: `
-  <div class="inventory-app">
+  <div class="music-app">
+    <audio-player [url]="currentTrackUrl"></audio-player>
     <track-list
       [trackList]="tracks"
       (onTrackSelected)="onTrackSelected($event)">
     </track-list>
   </div>
-`
+`,
+ directives: [TrackList, AudioPlayer]
 })
 
 export class MusicPlayer {
   message: String;
   tracks: Array<any>;
+  currentTrackUrl: String;
   constructor() {
 
     //TODO: fetch tracks from service
@@ -48,5 +51,7 @@ export class MusicPlayer {
 
   onTrackSelected(track: Media): void {
     console.log('Track selected: ', track);
+    this.currentTrackUrl = track.url;
+
   }
 }

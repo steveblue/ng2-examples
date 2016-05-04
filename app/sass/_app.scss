@@ -8,9 +8,13 @@ body {
   display: none;
 }
 
+audio::-webkit-media-controls-panel {
+    background-color: #010101;
+}
+
 track-list {
   display: block;
-  width: 320px;
+  width: 300px;
   track-item {
 
     display: flex;
@@ -18,7 +22,7 @@ track-list {
     cursor: pointer;
     font-weight: 100;
     font-size: 14px;
-    
+
     .track__image {
       width: 64px;
       height: auto;
