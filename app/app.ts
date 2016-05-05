@@ -1,5 +1,5 @@
 import { bootstrap } from 'angular2/platform/browser';
-import { Component, bind } from 'angular2/core';
+import { Component, provide } from 'angular2/core';
 import { ROUTER_PROVIDERS, RouteConfig, RouterOutlet, RouterLink } from 'angular2/router';
 import { LocationStrategy, PathLocationStrategy } from 'angular2/platform/common';
 
@@ -34,5 +34,5 @@ export class App {
 
 bootstrap(App, [
   ROUTER_PROVIDERS,
-  bind(LocationStrategy).toClass(PathLocationStrategy),
+  provide(LocationStrategy, { useClass : PathLocationStrategy })
 ]);

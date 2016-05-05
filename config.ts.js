@@ -6,7 +6,7 @@ module.exports = {
     module: 'commonjs',
     target: 'es5',
     noImplicitAny: false,
-    sourceMap: false,
+    sourceMap: true,
     outDir: '/build/www'
   },
   prod: {
@@ -15,7 +15,7 @@ module.exports = {
     module: 'commonjs',
     target: 'es5',
     noImplicitAny: false,
-    sourceMap: false,
+    sourceMap: true,
     outDir: '/build/prod'
   }
 };

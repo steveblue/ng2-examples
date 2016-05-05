@@ -1,20 +1,24 @@
-import { Component } from "angular2/core";
+import { Component, provide } from "angular2/core";
 
 import { Media } from "../models/media";
 import { TrackList } from "../directives/track-list";
-import { AudioPlayer } from '../directives/audio-player';
+import { AudioPlayer } from "../directives/audio-player";
+
 
 @Component({
   template: `
   <div class="music-app">
-    <audio-player [url]="currentTrackUrl"></audio-player>
+    <audio-player
+      [url]="currentTrackUrl">
+    </audio-player>
     <track-list
       [trackList]="tracks"
       (onTrackSelected)="onTrackSelected($event)">
     </track-list>
   </div>
 `,
- directives: [TrackList, AudioPlayer]
+ directives: [TrackList, AudioPlayer],
+ providers: [provide('audioContext', {useValue: new (window['AudioContext'] || window['webkitAudioContext'])})]
 })
 
 export class MusicPlayer {
