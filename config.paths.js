@@ -21,6 +21,7 @@ module.exports = {
       'node_modules/angular2/bundles/router.dev.js',
       'node_modules/angular2/bundles/http.dev.js',
       'bower_components/headjs/dist/1.0.0/head.js',
+      'node_modules/d3/d3.js'
 
 
     ],
@@ -33,6 +34,7 @@ module.exports = {
       'node_modules/angular2/bundles/router.dev.js',
       'node_modules/angular2/bundles/http.dev.js',
       'bower_components/headjs/dist/1.0.0/head.load.min.js',
+      'node_modules/d3/d3.min.js'
 
 
     ],

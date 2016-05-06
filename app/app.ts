@@ -17,7 +17,7 @@ import {MusicPlayer} from './src/views/music-player';
       <router-outlet></router-outlet>
     </div>
   `,
-  directives: [RouterOutlet, RouterLink]
+  directives : [RouterOutlet, RouterLink]
 })
 
 @RouteConfig([
@@ -27,7 +27,6 @@ import {MusicPlayer} from './src/views/music-player';
 
 export class App {
   constructor() {
-
 
   }
 }

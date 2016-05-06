@@ -34,7 +34,6 @@ export class AudioPlayer implements OnInit {
      this.processor.connect(this.ctx.destination);
      this.analyzer.connect(this.processor);
      this.freqData = new Uint8Array(this.analyzer.frequencyBinCount);
-
      this.emitter = new EventEmitter();
   }
   ngOnInit() {
@@ -48,16 +47,27 @@ export class AudioPlayer implements OnInit {
   }
   onPlay(ev) {
 
+    var uint8ArrayToArray = function(uint8Array) {
+        var array = [];
+
+        for (var i = 0; i < uint8Array.byteLength; i++) {
+            array[i] = uint8Array[i];
+        }
+
+        return array;
+    };
+
     this.processor.onaudioprocess = () => {
         this.analyzer.getByteFrequencyData(this.freqData);
-        this.emitter.next(this.freqData);
+        //console.log(map);
+        this.emitter.next(uint8ArrayToArray(this.freqData));
     };
 
   }
 
   onEnded(ev) {
-    this.sourceNode.disconnect();
-    this.sourceNode = null;
+    // this.sourceNode.disconnect();
+    // this.sourceNode = null;
     this.processor.onaudioprocess = function() {};
   }
 

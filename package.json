@@ -29,6 +29,7 @@
     "connect": "=3.2.0",
     "css-mqpacker": "^4.0.1",
     "cssnano": "^3.5.2",
+    "d3": "^3.5.17",
     "del": "=1.2.0",
     "es6-shim": "^0.35.0",
     "gulp": "=3.9.0",
@@ -55,14 +56,14 @@
     "node-bourbon": "^4.2.3",
     "node-neat": "^1.7.2",
     "node-notifier": "=4.2.1",
+    "reflect-metadata": "=0.1.2",
     "require-dir": "=0.3.0",
     "run-sequence": "=1.1.0",
     "rxjs": "^5.0.0-beta.6",
     "st": "=0.5.4",
     "systemjs": "^0.19.26",
-    "reflect-metadata": "=0.1.2",
-    "zone.js": "^0.6.12",
-    "tslint": "^3.8.0-dev.1"
+    "tslint": "^3.8.0-dev.1",
+    "zone.js": "^0.6.12"
   },
   "devDependencies": {
     "gulp-sass": "^2.3.1",

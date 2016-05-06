@@ -8,13 +8,13 @@ import { AudioPlayer } from "../directives/audio-player";
 @Component({
   template: `
   <div class="music-app">
-    <audio-player
-      [url]="currentTrackUrl">
-    </audio-player>
     <track-list
       [trackList]="tracks"
       (onTrackSelected)="onTrackSelected($event)">
     </track-list>
+    <audio-player
+      [url]="currentTrackUrl">
+    </audio-player>
   </div>
 `,
  directives: [TrackList, AudioPlayer],

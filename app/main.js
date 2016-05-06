@@ -11,7 +11,8 @@
       'lib/Rx.js',
       'lib/angular2.dev.js',
       'lib/router.dev.js',
-      'lib/http.dev.js'
+      'lib/http.dev.js',
+      'lib/d3.js'
     )
     .ready('ALL', function() {
 
