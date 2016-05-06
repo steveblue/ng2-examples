@@ -66,7 +66,7 @@ module.exports = {
   symlink: [
     '!app/components/.new/**/*.*',
     'app/**/*.js',
-    'app/**/*.scss',
+    'app/src/**/*.css',
     'app/**/*.json',
     'app/**/*.html',
     'app/*.html'
@@ -74,7 +74,7 @@ module.exports = {
 
   copy: [
     '!app/components/.new/**/*.*',
-    'app/**/*.scss',
+    'app/src/**/*.css',
     'app/**/*.json',
     'app/**/*.html',
     'app/*.html'
@@ -98,8 +98,10 @@ module.exports = {
 
 // App SASS
   sass: {
-    src:    ['app/sass/**/*.scss','app/sass/*.scss'],
+    src: ['app/sass/**/*.scss','app/sass/*.scss'],
+    ts: ['app/src/**/*.scss'],
     sass:   'app/sass',
+    tsOut:  devDir + '/src',
     dev:    devDir + '/css',
     prod:   prodDir + '/css'
   },

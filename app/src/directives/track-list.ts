@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from "angular2/core";
+import { Component, EventEmitter, ViewEncapsulation } from "angular2/core";
 
 import { Media } from "../models/media";
 import { TrackItem } from './track-item';
@@ -15,6 +15,8 @@ import { TrackItem } from './track-item';
    [class.selected]="isSelected(track)">
   </track-item>
 `,
+  moduleId: module.id,
+  styleUrls: ['track-list.css'],
   directives: [TrackItem]
 })
 

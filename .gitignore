@@ -13,3 +13,4 @@ build
 /settings/local/config.json
 /settings/prod/config.json
 /app/assets/music
+/app/src/*/*.css

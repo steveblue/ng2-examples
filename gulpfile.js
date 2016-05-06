@@ -21,8 +21,8 @@ gulp.task('dev:build:local', function(callback){
   runSequence(
     'clean:dev',
     //'jshint',
-    ['ts:lint', 'ts:app'],
-    ['sass:dev', 'symlink:all'],
+    ['sass:dev'],
+    ['ts:lint', 'ts:app', 'symlink:all'],
     callback
   );
 });
@@ -31,9 +31,9 @@ gulp.task('dev:build:local', function(callback){
 gulp.task('dev:build', function(callback){
   runSequence(
     'clean:dev',
+    ['sass:dev:min', 'uglify:dev'],
     ['ts:lint', 'ts:app'],
     ['copy:dev', 'copy:dev:lib', 'copy:dev:settings', 'copy:dev:assets'],
-    ['sass:dev:min', 'uglify:dev'],
     'server:dev',
     callback
   );

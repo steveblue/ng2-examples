@@ -59,8 +59,7 @@ export class Visualizer implements OnInit {
 
       svg.select('path')
 					.attr('d', line(res))
-          .style('stroke', function (d,i) { return color(i) });
-
+          .style('stroke', function (d,i) { return color(d) });
 
     });
 

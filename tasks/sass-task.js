@@ -17,6 +17,10 @@ var gulp    = require('gulp'),
 
 // Build Options
     options = {
+        ts: {
+            style : 'expanded',
+            comments : true
+        },
         dev: {
             project: fs.realpathSync(__dirname + '/..'),
             includePaths: ['styles'].concat(neat),
@@ -47,6 +51,9 @@ var gulp    = require('gulp'),
       this.emit('end');
     },
     processors = {
+      ts: [
+         autoprefixer
+      ],
       dev: [
          autoprefixer,
          mqpacker
@@ -59,7 +66,7 @@ var gulp    = require('gulp'),
     };
 
 // Default sass task is sass:dev
-gulp.task('sass:dev', ['sass:compile']);
+gulp.task('sass:dev', ['sass:compile', 'sass:compile:ts']);
 gulp.task('sass:dev:min', ['sass:compile:min']);
 gulp.task('sass:prod', ['sass:compile:prod']);
 
@@ -72,6 +79,14 @@ gulp.task('sass:prod', ['sass:compile:prod']);
 //         .on('error', errorNotifier)
 //         .pipe(gulp.dest(paths.dev));
 // });
+
+gulp.task('sass:compile:ts', function () {
+  return gulp.src(paths.ts, { base: "./" })
+    .pipe(plumber())
+    .pipe(sass(options.ts))
+    .pipe(postcss(processors.ts))
+    .pipe(gulp.dest('.'));
+});
 
 gulp.task('sass:compile', function () {
   return gulp.src(paths.src)

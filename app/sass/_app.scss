@@ -11,34 +11,3 @@ body {
 audio::-webkit-media-controls-panel {
     background-color: #010101;
 }
-
-track-list {
-  display: block;
-  width: 300px;
-  track-item {
-
-    display: flex;
-    width: 100%;
-    cursor: pointer;
-    font-weight: 100;
-    font-size: 14px;
-
-    .track__image {
-      width: 64px;
-      height: auto;
-      img {
-        width: 100%;
-      }
-    }
-    span {
-      padding-right: 20px;
-      &.track__meta {
-        padding-top: 16px;
-      }
-    }
-    &.selected {
-      background: #323232;
-    }
-
-  }
-}
