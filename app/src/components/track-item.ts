@@ -1,6 +1,6 @@
 import { Component } from "angular2/core";
 
-import { Media } from "../models/media";
+import { Media } from "../schema/media";
 
 @Component({
 selector: 'track-item',

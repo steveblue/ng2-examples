@@ -1,0 +1,23 @@
+{
+  "media": [{
+      "artist": "Beach House",
+      "title": "Myth",
+      "url": "/assets/music/01-myth.m4a",
+      "imageUrl": "/assets/music/album-artwork.png",
+      "index": 1
+    }, {
+
+      "artist": "Beach House",
+      "title": "Wild",
+      "url": "/assets/music/02-wild.m4a",
+      "imageUrl": "/assets/music/album-artwork.png",
+      "index": 2
+    }, {
+      "artist": "Beach House",
+      "title": "Lazuli",
+      "url": "/assets/music/03-lazuli.m4a",
+      "imageUrl": "/assets/music/album-artwork.png",
+      "index": 3
+    }
+  ]
+}

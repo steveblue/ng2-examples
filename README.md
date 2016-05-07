@@ -1,7 +1,42 @@
-Angular 2 Boilerplate
-https://github.com/steveblue/ng2-boilerplate
+Angular 2 Custom Audio Player Visualization
 
-This project is starter code for a web app built with Angular 2, based off an earlier angular-boilerplate https://github.com/steveblue/angular-boilerplate.
+This example uses WebAudio API and d3 to visualize the levels of audio provided by web compliant audio files. It represents a culmination of most of the topics I learned at ng-conf 2016 including how to make xhr requests and transform responses with Observables, create Injectables, use EventEmitters, take advantage of Inputs and Outputs, and style Components the Angular 2 way using Shadow DOM Emulation.
+
+![](/screenshot.png)
+
+Bring your own audio files. Put web compliant mp3 or m4a in the /app/assets folder.
+
+Configure the player with a JSON file stored in /src/models/media.json. An example is provided.
+
+```
+{
+  "media": [{
+      "artist": "Beach House",
+      "title": "Myth",
+      "url": "/assets/music/01-myth.m4a",
+      "imageUrl": "/assets/music/album-artwork.png",
+      "index": 1
+    }, {
+
+      "artist": "Beach House",
+      "title": "Wild",
+      "url": "/assets/music/02-wild.m4a",
+      "imageUrl": "/assets/music/album-artwork.png",
+      "index": 2
+    }, {
+      "artist": "Beach House",
+      "title": "Lazuli",
+      "url": "/assets/music/03-lazuli.m4a",
+      "imageUrl": "/assets/music/album-artwork.png",
+      "index": 3
+    }
+  ]
+}
+```
+
+I'm still trying to wrap my head around Typescript and while the current build lints TS and compiles it, type definitions are not being generated for the custom components.
+
+This project is based off my Angular 2 Boilerplate found here: https://github.com/steveblue/ng2-boilerplate
 
 This boilerplate is simple, yet powerful. It includes gulp tasks that lint and compile Typescript, compile SASS to CSS with libsass and PostCSS, and creates build directories for local and production development environments. It also includes a livereload server for local development so you can get up and running quickly.
 

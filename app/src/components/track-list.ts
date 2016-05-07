@@ -1,6 +1,6 @@
 import { Component, EventEmitter, ViewEncapsulation } from "angular2/core";
 
-import { Media } from "../models/media";
+import { Media } from "../schema/media";
 import { TrackItem } from './track-item';
 
 

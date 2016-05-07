@@ -1,6 +1,6 @@
-import { Component, provide } from "angular2/core";
-
-import { Media } from "../models/media";
+import { Component, provide } from 'angular2/core';
+import { MediaService } from '../services/media-service';
+import { Media } from "../schema/media";
 import { TrackList } from "../components/track-list";
 import { AudioPlayer } from "../components/audio-player";
 
@@ -18,37 +18,40 @@ import { AudioPlayer } from "../components/audio-player";
   </div>
 `,
  directives: [TrackList, AudioPlayer],
- providers: [provide('audioContext', {useValue: new (window['AudioContext'] || window['webkitAudioContext'])})]
+ providers: [MediaService, provide('audioContext', {useValue: new (window['AudioContext'] || window['webkitAudioContext'])})]
 })
 
 export class MusicPlayer {
   message: String;
-  tracks: Array<any>;
+  tracks: Array<Media>;
   currentTrackUrl: String;
-  constructor() {
+  constructor(public mediaService: MediaService) {
 
     //TODO: fetch tracks from service
 
-    this.tracks = [
-            new Media(
-            'Beach House',
-            'Myth',
-            '/assets/music/01-myth.m4a',
-            '/assets/music/album-artwork.png',
-            1),
-            new Media(
-            'Beach House',
-            'Wild',
-            '/assets/music/02-wild.m4a',
-            '/assets/music/album-artwork.png',
-            2),
-            new Media(
-            'Beach House',
-            'Lazuli',
-            '/assets/music/03-lazuli.m4a',
-            '/assets/music/album-artwork.png',
-            3)
-            ];
+    mediaService.get().subscribe(res => this.tracks = res);
+
+
+    // this.tracks = [
+    //         new Media(
+    //         'Beach House',
+    //         'Myth',
+    //         '/assets/music/01-myth.m4a',
+    //         '/assets/music/album-artwork.png',
+    //         1),
+    //         new Media(
+    //         'Beach House',
+    //         'Wild',
+    //         '/assets/music/02-wild.m4a',
+    //         '/assets/music/album-artwork.png',
+    //         2),
+    //         new Media(
+    //         'Beach House',
+    //         'Lazuli',
+    //         '/assets/music/03-lazuli.m4a',
+    //         '/assets/music/album-artwork.png',
+    //         3)
+    //         ];
 
 
   }
