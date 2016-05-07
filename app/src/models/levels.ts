@@ -1,12 +1,12 @@
 export class Levels {
   constructor() {
 
-    let levels = [];
+    let levels : array = [];
 
-    for(var i=0;i<1025;i++){
+    for( var i : number = 0; i < 1025; i++ ){
       levels.push(0);
     }
-    
+
     return levels;
 
   }

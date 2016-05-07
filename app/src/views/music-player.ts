@@ -1,8 +1,8 @@
 import { Component, provide } from "angular2/core";
 
 import { Media } from "../models/media";
-import { TrackList } from "../directives/track-list";
-import { AudioPlayer } from "../directives/audio-player";
+import { TrackList } from "../components/track-list";
+import { AudioPlayer } from "../components/audio-player";
 
 
 @Component({
