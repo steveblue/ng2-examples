@@ -13,30 +13,26 @@ module.exports = {
 // Lib Files
   lib: {
     src:[
+      'node_modules/rxjs/**/*.js',
+      'node_modules/@angular/**/*.js',
       'node_modules/es6-shim/es6-shim.js',
-      'node_modules/angular2/bundles/angular2-polyfills.js',
       'node_modules/systemjs/dist/system.src.js',
-      'node_modules/rxjs/bundles/Rx.js',
       'node_modules/angular2/bundles/angular2.dev.js',
       'node_modules/angular2/bundles/router.dev.js',
       'node_modules/angular2/bundles/http.dev.js',
-      'bower_components/headjs/dist/1.0.0/head.js',
+      'node_modules/headjs/dist/1.0.0/head.js',
       'node_modules/d3/d3.js'
-
-
     ],
     min:[
+      'node_modules/rxjs/**/*.js',
+      'node_modules/@angular/**/*.js',
       'node_modules/es6-shim/es6-shim.js',
-      'node_modules/angular2/bundles/angular2-polyfills.js',
       'node_modules/systemjs/dist/system.src.js',
-      'node_modules/rxjs/bundles/Rx.js',
       'node_modules/angular2/bundles/angular2.dev.js',
       'node_modules/angular2/bundles/router.dev.js',
       'node_modules/angular2/bundles/http.dev.js',
-      'bower_components/headjs/dist/1.0.0/head.load.min.js',
+      'node_modules/headjs/dist/1.0.0/head.load.min.js',
       'node_modules/d3/d3.min.js'
-
-
     ],
     dev:  devDir  + '/lib',
     prod: prodDir + '/lib'

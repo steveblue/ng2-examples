@@ -5,26 +5,15 @@
 
   head
     .load(
-      'lib/es6-shim.js',
-      'lib/angular2-polyfills.js',
-      'lib/system.src.js',
-      'lib/Rx.js',
-      'lib/angular2.dev.js',
-      'lib/router.dev.js',
-      'lib/http.dev.js',
-      'lib/d3.js'
+      'lib/es6-shim/es6-shim.js',
+      'lib/systemjs/dist/system.src.js',
+      'lib/d3/d3.js'
     )
     .ready('ALL', function() {
 
-
-      System.config({
-        transpiler: 'typescript',
-        typescriptOptions: { emitDecoratorMetadata: true },
-        packages: {'src': {defaultExtension: 'js'}}
-      });
-
-      System.import('./app.js').then(null, console.error.bind(console));
-
+      System.import('system-config.js').then(function () {
+        System.import('./app.js');
+      }).catch(console.error.bind(console));
 
     }); // end .ready()
 }( window, head ));
