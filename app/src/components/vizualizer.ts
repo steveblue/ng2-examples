@@ -7,7 +7,9 @@ declare let d3:any;
 @Component({
 selector: 'visualizer',
 inputs: ['stream'],
-template: ``
+template: ``,
+moduleId: module.id,
+styleUrls: ['visualizer.css']
 })
 
 export class Visualizer implements OnInit {
@@ -33,7 +35,7 @@ export class Visualizer implements OnInit {
         width = window.innerWidth,
         height = 360;
 
-    x = d3.scale.linear().domain([0, 1024]).range([0, width]);
+    x = d3.scale.linear().domain([0, 1026]).range([0, width]);
     y = d3.scale.linear().domain([0, 255]).range([height, 0]);
 
     line = d3.svg.line()
@@ -43,23 +45,22 @@ export class Visualizer implements OnInit {
 
     data = new Levels();
 
-
-
     svg = d3.select(this.elem)
                       .append('svg:svg')
                       .attr('width', width+'px')
                       .attr('height', height+'px');
 
-    color = d3.scale.category10();
+    color = '#76E7CD';
 
     svg.append('svg:path').attr('d', line(data));
 
 
     this.stream.subscribe((res)=>{
-
+      res.unshift(0);
+      res.push(0);
       svg.select('path')
 					.attr('d', line(res))
-          .style('stroke', function (d,i) { return color(d) });
+          .style('fill', color);
 
     });
 
