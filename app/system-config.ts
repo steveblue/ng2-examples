@@ -1,57 +1,42 @@
-/***********************************************************************************************
- * User Configuration.
- **********************************************************************************************/
-/** Map relative paths to URLs. */
 const map: any = {
-};
+    'app':                        'app', // 'dist',
+    'src':                        'src',
+    'rxjs':                       'lib/rxjs',
+    '@angular':                   'lib/@angular'
+  };
 
-/** User packages configuration. */
 const packages: any = {
-};
+    'app':                        { main: 'main.js',  defaultExtension: 'js' },
+    'src':                        { defaultExtension: 'js' },
+    '@angular':                   { defaultExtension: 'js' },
+    'rxjs':                       { defaultExtension: 'js' }
+  };
 
 
+const packageNames: string[] = [
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/core',
+    '@angular/http',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/router-deprecated',
+    '@angular/testing',
+    '@angular/upgrade',
+  ];
 
-
-////////////////////////////////////////////////////////////////////////////////////////////////
-/***********************************************************************************************
- * Everything underneath this line is managed by the CLI.
- **********************************************************************************************/
-const barrels: string[] = [
-  // Angular specific barrels.
-  '@angular/core',
-  '@angular/common',
-  '@angular/compiler',
-  '@angular/http',
-  '@angular/router',
-  '@angular/platform-browser',
-  '@angular/platform-browser-dynamic',
-
-  // Thirdparty barrels.
-  'rxjs',
-
-  // App specific barrels.
-  'app'
-  /** @cli-barrel */
-];
-
-const cliSystemConfigPackages: any = {};
-barrels.forEach((barrelName: string) => {
-  cliSystemConfigPackages[barrelName] = { main: 'index' };
+packageNames.forEach(function(pkgName) {
+    packages[pkgName] = { main: 'index.js', defaultExtension: 'js' };
 });
 
-/** Type declaration for ambient System. */
+
 declare var System: any;
 
-// Apply the CLI SystemJS configuration.
+// Apply TS configuration.
 System.config({
-  map: {
-    '@angular': 'lib/@angular',
-    'rxjs': 'lib/rxjs'
-  },
   transpiler: 'typescript',
-  typescriptOptions: { emitDecoratorMetadata: true },
-  packages: cliSystemConfigPackages
+  typescriptOptions: { emitDecoratorMetadata: true }
 });
 
 // Apply the user's configuration.
- System.config({ map, packages });
+System.config({ map: map, packages: packages });

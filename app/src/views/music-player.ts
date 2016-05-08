@@ -1,4 +1,4 @@
-import { Component, provide } from 'angular2/core';
+import { Component, provide } from '@angular/core';
 import { MediaService } from '../services/media-service';
 import { Media } from "../schema/media";
 import { TrackList } from "../components/track-list";

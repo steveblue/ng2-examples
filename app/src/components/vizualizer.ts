@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, EventEmitter } from '@angular2/core';
+import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Levels } from '../models/levels';
 

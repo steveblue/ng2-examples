@@ -1,8 +1,8 @@
-import { Component, provide } from '@angular2/core';
-import { bootstrap } from '@angular2/platform-browser';
-import { HTTP_PROVIDERS } from '@angular2/http';
-import { ROUTER_PROVIDERS, RouteConfig, RouterOutlet, RouterLink } from '@angular2/router';
-import { LocationStrategy, PathLocationStrategy } from '@angular2/common';
+import { Component, provide } from '@angular/core';
+import { bootstrap } from '@angular/platform-browser-dynamic';
+import { HTTP_PROVIDERS } from '@angular/http';
+import { ROUTER_PROVIDERS, RouteConfig, RouterOutlet, RouterLink } from '@angular/router-deprecated';
+import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import {About} from './src/views/about';
 import {MusicPlayer} from './src/views/music-player';
