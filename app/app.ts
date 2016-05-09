@@ -1,7 +1,7 @@
 import { Component, provide } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
-import { ROUTER_PROVIDERS, RouteConfig, RouterOutlet, RouterLink } from '@angular/router-deprecated';
+import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Router, Routes } from '@angular/router';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
 import {About} from './src/views/about';
@@ -12,22 +12,22 @@ import {MusicPlayer} from './src/views/music-player';
 @Component({
   selector: 'app',
   template: `
-    <a [routerLink]="['./Player']" class="nav__item">Home</a>
-	  <a [routerLink]="['./About']" class="nav__item">About</a>
+    <a [routerLink]="['/']" class="nav__item">Home</a>
+	  <a [routerLink]="['/about']" class="nav__item">About</a>
     <div class="outer-outlet">
       <router-outlet></router-outlet>
     </div>
   `,
-  directives : [RouterOutlet, RouterLink]
+    directives : [ROUTER_DIRECTIVES]
 })
 
-@RouteConfig([
-  {path:'/', name: 'Player', component: MusicPlayer},
-  {path:'/about', name: 'About', component: About}
+@Routes([
+  {path:'/', component: MusicPlayer},
+  {path:'/about', component: About}
 ])
 
 export class App {
-  constructor() {
+  constructor(router: Router) {
 
   }
 }
