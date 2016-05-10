@@ -1,6 +1,6 @@
-import { Component, ElementRef, Inject, OnInit, EventEmitter } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-
+import { MediaService } from '../services/media-service';
 import { Visualizer } from "./vizualizer";
 
 @Component({
@@ -10,9 +10,10 @@ template: `
   <audio controls src="{{url}}"
   (play)="onPlay($event)"
   (ended)="onEnded($event)"></audio>
-  <visualizer *ngIf="emitter" [stream]="emitter"></visualizer>
+  <visualizer></visualizer>
 `,
-directives: [Visualizer]
+directives: [Visualizer],
+providers: [MediaService]
 })
 
 export class AudioPlayer implements OnInit {
@@ -25,16 +26,17 @@ export class AudioPlayer implements OnInit {
   processor: ScriptProcessorNode;
   sourceNode: MediaElementAudioSourceNode;
   freqData: Uint8Array;
-  emitter: EventEmitter<any>;
-  constructor(elem: ElementRef, @Inject('audioContext') private context) {
+  mediaService: MediaService;
+  constructor(elem: ElementRef, mediaService: MediaService, @Inject('audioContext') private context) {
      this.elem = elem.nativeElement;
+     this.mediaService = mediaService;
      this.ctx = context;
      this.analyzer = this.ctx.createAnalyser();
      this.processor = this.ctx.createScriptProcessor(1024);
      this.processor.connect(this.ctx.destination);
      this.analyzer.connect(this.processor);
      this.freqData = new Uint8Array(this.analyzer.frequencyBinCount);
-     this.emitter = new EventEmitter();
+    //  this.emitter = new EventEmitter();
   }
   ngOnInit() {
 
@@ -59,8 +61,9 @@ export class AudioPlayer implements OnInit {
 
     this.processor.onaudioprocess = () => {
         this.analyzer.getByteFrequencyData(this.freqData);
-        //console.log(map);
-        this.emitter.next(uint8ArrayToArray(this.freqData));
+        //console.log(this.freqData);
+        this.mediaService.  setFrequencyData(uint8ArrayToArray(this.freqData));
+        //this.emitter.next(uint8ArrayToArray(this.freqData));
     };
 
   }

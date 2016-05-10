@@ -1,27 +1,29 @@
 import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { MediaService } from '../services/media-service';
 import { Levels } from '../models/levels';
 
 declare let d3:any;
 
 @Component({
 selector: 'visualizer',
-inputs: ['stream'],
 template: ``,
 moduleId: module.id,
-styleUrls: ['visualizer.css']
+styleUrls: ['visualizer.css'],
+providers: [MediaService]
 })
 
 export class Visualizer implements OnInit {
 
   analyzer: Object[];
-  stream: EventEmitter<any>;
   path: String;
   elem: HTMLElement;
+  mediaService: MediaService
 
-  constructor(elem: ElementRef) {
+  constructor(elem: ElementRef, mediaService: MediaService) {
 
     this.elem = elem.nativeElement;
+    this.mediaService = mediaService;
 
   }
   ngOnInit() {
@@ -54,8 +56,8 @@ export class Visualizer implements OnInit {
 
     svg.append('svg:path').attr('d', line(data));
 
+    this.mediaService.emitter.subscribe((res)=>{
 
-    this.stream.subscribe((res)=>{
       res.unshift(0);
       res.push(0);
       svg.select('path')
