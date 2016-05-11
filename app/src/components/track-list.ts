@@ -1,4 +1,4 @@
-import { Component, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 
 import { Media } from "../schema/media";
 import { TrackItem } from './track-item';
@@ -43,7 +43,5 @@ export class TrackList {
     return track.title === this.currentTrack.title;
 
   }
-
-
 
 }
