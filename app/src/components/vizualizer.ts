@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, EventEmitter } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MediaService } from '../services/media-service';
 import { Levels } from '../models/levels';
@@ -7,7 +7,13 @@ declare let d3:any;
 
 @Component({
 selector: 'visualizer',
-template: ``,
+outputs: ['path'],
+template: `
+ <svg [attr.width]="width" [attr.height]="height">
+   <path [attr.d]="path" [attr.fill]="color">
+   </path>
+ </svg>
+`,
 moduleId: module.id,
 styleUrls: ['visualizer.css'],
 providers: [MediaService]
@@ -16,14 +22,22 @@ providers: [MediaService]
 export class Visualizer implements OnInit {
 
   analyzer: Object[];
-  path: String;
+  path: string;
   elem: HTMLElement;
-  mediaService: MediaService
-
-  constructor(elem: ElementRef, mediaService: MediaService) {
+  mediaService: MediaService;
+  width: number;
+  height: number;
+  color: string;
+  emitter: EventEmitter<any>;
+  ref: ChangeDetectorRef;
+  //changeDetection: ChangeDetectionStrategy.OnPush;
+@Inject('audioContext') private context
+  constructor(elem: ElementRef, mediaService: MediaService, ref: ChangeDetectorRef) {
 
     this.elem = elem.nativeElement;
     this.mediaService = mediaService;
+    this.emitter = new EventEmitter();
+    this.ref = ref;
 
   }
   ngOnInit() {
@@ -47,27 +61,40 @@ export class Visualizer implements OnInit {
 
     data = new Levels();
 
-    svg = d3.select(this.elem)
-                      .append('svg:svg')
-                      .attr('width', width+'px')
-                      .attr('height', height+'px');
+    // svg = d3.select(this.elem)
+    //                   .append('svg:svg')
+    //                   .attr('width', width+'px')
+    //                   .attr('height', height+'px');
 
-    color = '#76E7CD';
+    this.color = '#76E7CD';
 
-    svg.append('svg:path').attr('d', line(data));
+    //svg.append('svg:path').attr('d', line(data));
+    this.width = width;
+    this.height = height;
+
+    // this.emitter.subscribe((res)=>{
+    //   this.path = line(res);
+    // };
+
+    var count = 0;
 
     this.mediaService.emitter.subscribe((res)=>{
 
+      // console.log(this.line);
       res.unshift(0);
       res.push(0);
-      svg.select('path')
-					.attr('d', line(res))
-          .style('fill', color);
+      // console.log(this.path);
+      this.path = line(res);
+      this.ref.detectChanges();
+
+
+      // svg.select('path')
+			// 		.attr('d', line(res))
+      //     .style('fill', color);
 
     });
 
+
   }
-  visualize(stream: any) {
-    console.log(stream);
-  }
+
 }
