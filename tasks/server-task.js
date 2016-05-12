@@ -94,11 +94,14 @@ gulp.task('server:lr', function(done){
     livereload.listen(options.dev.lrPort);
 
     gulp.watch(paths.sass.src, ['sass:dev']);
+    gulp.watch(paths.sass.ts, ['sass:compile:ts'], function(event) {
+		gulp.src(event.path).pipe(livereload());
+	  });
   //  gulp.watch(paths.jshint.app, ['jshint:dev']);
     gulp.watch(paths.ts.lint, ['ts:lint','ts:app']);
     gulp.watch(paths.symlink, ['symlink:reload']);
 
-    gulp.watch([paths.devDir+'/css/styles.css', paths.devDir+'/**/*.js', paths.devDir+'/**/*.html', paths.devDir+'/*.html'], function(event) {
+    gulp.watch([paths.devDir+'/**/*.css', paths.devDir+'/**/*.js', paths.devDir+'/**/*.html', paths.devDir+'/*.html'], function(event) {
 		gulp.src(event.path)
 			.pipe(livereload());
 	});

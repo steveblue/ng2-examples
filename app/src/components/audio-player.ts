@@ -13,7 +13,10 @@ template: `
   <visualizer></visualizer>
 `,
 directives: [Visualizer],
-providers: [MediaService]
+providers: [MediaService],
+moduleId: module.id,
+styleUrls: ['audio.css']
+
 })
 
 export class AudioPlayer implements OnInit {
