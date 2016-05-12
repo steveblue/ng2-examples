@@ -50,8 +50,7 @@ module.exports = {
   },
 
   ts : {
-    src: ['node_modules/@angular/ts/typings/node/node.d.ts',
-          'node_modules/@angular/typings/browser.d.ts',
+    src: ['typings/browser.d.ts',
           'app/*.ts',
           'app/**/*.ts'],
     lint: ['app/*.ts',
