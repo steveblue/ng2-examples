@@ -7,24 +7,19 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import {Default} from './src/views/default';
 import {About} from './src/views/about';
 import {MusicPlayer} from './src/views/music-player';
+import {GlobalNav} from './src/components/nav';
 
 // console.log(About);
 
 @Component({
   selector: 'app',
   template:`
-    <nav>
-      <ul>
-        <li class="nav__item"><a [routerLink]="['/']" >Home</a></li>
-        <li class="nav__item"><a [routerLink]="['/music']" >Music Player</a></li>
-        <li class="nav__item"><a [routerLink]="['/about']" >About</a></li>
-      </ul>
-    </nav>
+    <global-nav></global-nav>
     <div class="outer-outlet">
       <router-outlet></router-outlet>
     </div>
    `,
-   directives : [ROUTER_DIRECTIVES],
+   directives : [ROUTER_DIRECTIVES, GlobalNav],
    moduleId: module.id,
    styleUrls: ['app.css']
 })
@@ -36,9 +31,11 @@ import {MusicPlayer} from './src/views/music-player';
 ])
 
 export class App {
+  
   constructor(router: Router) {
-
+    console.log(router);
   }
+  
 }
 
 bootstrap(App, [

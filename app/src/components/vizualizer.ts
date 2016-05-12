@@ -75,7 +75,6 @@ export class Visualizer implements OnInit {
     
     this.shape = this.elem.nativeElement.getElementsByTagName('path')[0];
 
-
     this.mediaService.emitter.subscribe((res)=>{
       
       res.unshift(0);
