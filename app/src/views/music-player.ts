@@ -6,6 +6,7 @@ import { AudioPlayer } from "../components/audio-player";
 
 
 @Component({
+  selector: 'view',
   template: `
   <div class="music-app">
     <track-list

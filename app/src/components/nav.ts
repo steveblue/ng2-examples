@@ -20,12 +20,10 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
       state('void', style({ display: 'none' })),
       state('active', style({ transform: 'translate3d(0, 0px, 0)' })),
       state('hidden', style({ transform: 'translate3d(0, -300px, 0)' })),
-      transition('active => hidden', [animate('500ms ease-out')]),
-      transition('hidden => active', [animate('500ms ease-out')])
-    ]),
+      transition('active => hidden', [animate('100ms ease-out')]),
+      transition('hidden => active', [animate('100ms ease-out')])
+    ])
   ]
- 
-
 })
 
 
@@ -35,7 +33,7 @@ export class GlobalNav implements OnInit {
   constructor(router: Router, ref: ChangeDetectorRef) {
     this.isVisible = false;
     this.ref = ref;
-    console.log('Global Nav!', this.isVisible);
+    //console.log('Global Nav!', this.isVisible);
   }
   ngOnInit() {
   
@@ -43,7 +41,7 @@ export class GlobalNav implements OnInit {
       
           this.isVisible = true;
           this.ref.detectChanges();
-          console.log('Global Nav!', this.isVisible);
+         // console.log('Global Nav!', this.isVisible);
     
     },100);
   }

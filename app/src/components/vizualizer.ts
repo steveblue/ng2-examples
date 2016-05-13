@@ -49,7 +49,7 @@ export class Visualizer implements OnInit {
     this.height = 240;
     
     this.playhead = {
-      color: 'rgba(255,255,255,1.0)',
+      color: 'transparent',
       isVisible: false,
       points: [{
         x: 0,

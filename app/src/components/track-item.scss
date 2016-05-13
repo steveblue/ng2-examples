@@ -6,18 +6,21 @@
   cursor: pointer;
   font-weight: 100;
   font-size: 14px;
+  height: 46px;
 
   &.selected {
-    background: #323232;
+    background: #8DE969;
+    color: #020202;
   }
 
 }
 
 .track__image {
     width: 64px;
-    height: auto;
+    height: 46px;
     img {
       width: 100%;
+      height: 100%;
     }
 }
 

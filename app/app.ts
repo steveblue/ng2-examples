@@ -1,4 +1,4 @@
-import { Component, provide } from '@angular/core';
+import { Component, provide, ElementRef } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Router, Routes } from '@angular/router';
@@ -15,9 +15,11 @@ import {GlobalNav} from './src/components/nav';
   selector: 'app',
   template:`
     <global-nav></global-nav>
+    <view></view>
     <div class="outer-outlet">
       <router-outlet></router-outlet>
     </div>
+
    `,
    directives : [ROUTER_DIRECTIVES, GlobalNav],
    moduleId: module.id,
