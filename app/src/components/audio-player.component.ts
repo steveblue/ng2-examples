@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MediaService } from '../services/media-service';
 import { WaveformComponent } from './waveform.component';
@@ -19,7 +19,7 @@ styleUrls: ['audio-player.component.css']
 
 })
 
-export class AudioPlayer implements OnInit {
+export class AudioPlayer implements OnInit, OnDestroy {
   url: String;
   audioStream: any;
   elem: HTMLElement;
@@ -40,6 +40,7 @@ export class AudioPlayer implements OnInit {
      this.analyzer.connect(this.processor);
      this.freqData = new Uint8Array(this.analyzer.frequencyBinCount);
   }
+  
   ngOnInit() {
 
     this.audioElem = this.elem.querySelector('audio');
@@ -48,6 +49,14 @@ export class AudioPlayer implements OnInit {
     this.sourceNode.connect(this.ctx.destination);
     
   }
+  
+  ngOnDestroy() {
+    
+    this.sourceNode.disconnect();
+    this.sourceNode = null;
+    
+  }
+  
   onPlay(ev) {
 
     var uint8ArrayToArray = function(uint8Array) {

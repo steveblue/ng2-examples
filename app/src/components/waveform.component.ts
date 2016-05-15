@@ -36,7 +36,6 @@ export class WaveformComponent implements OnInit {
     this.width = window.innerWidth;
     this.height = 240;
     this.meters = []; 
-    
     this.addMeter();   
 
   }
@@ -51,16 +50,15 @@ export class WaveformComponent implements OnInit {
             .y(function(d, i) { return y(d); });
            
     this.shape = this.elem.nativeElement.getElementsByClassName('levels')[0];
-
+   
     this.mediaService.emitter.subscribe((res)=>{
       
       res.unshift(0);
       res.push(0);
-
-      this.path = line(res);
-
       
-      for(let i=0; i<this.meters.length; i++) {
+      this.path = line(res);
+      
+      for( let i=0; i < this.meters.length; i++ ) {
         this.meters[i].level.points[0].x = this.meters[i].position.x;
         this.meters[i].level.points[1].x = this.meters[i].position.x; 
         this.meters[i].level.points[0].y = this.height - this.shape.getPointAtLength(this.meters[i].position.x).y; 
