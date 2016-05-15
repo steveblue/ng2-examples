@@ -5,7 +5,7 @@ export class Meter {
   isVisible: boolean;
   val: number;
   index: number;
-  constructor(private height: number, private index: number) {
+  constructor(private height: number, private i: number) {
     
     this.position = {
         x: 0,
@@ -16,7 +16,7 @@ export class Meter {
     
     this.isVisible = false;
     
-    this.index = index;
+    this.index = i;
     
     this.level = {
       color: 'rgba(255,255,255,1.0)',

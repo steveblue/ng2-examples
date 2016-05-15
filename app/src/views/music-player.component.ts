@@ -1,8 +1,8 @@
 import { Component, provide } from '@angular/core';
 import { MediaService } from '../services/media-service';
 import { Media } from "../schema/media";
-import { TrackList } from "../components/track-list";
-import { AudioPlayer } from "../components/audio-player";
+import { TrackList } from "../components/track-list.component";
+import { AudioPlayer } from "../components/audio-player.component";
 
 
 @Component({

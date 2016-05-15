@@ -2,6 +2,7 @@ import { Component, animation, style, animate, state, transition, ChangeDetector
 
 @Component({
   selector: 'view',
+  moduleId: module.id,
   template:`
   
   <h1 @state="isVisible === true ? 'active' : 'hidden'">
@@ -9,8 +10,7 @@ import { Component, animation, style, animate, state, transition, ChangeDetector
   </h1>
   
   `,
-   moduleId: module.id,
-   styleUrls: ['default.css'],
+   styleUrls: ['default.component.css'],
    animations: [
     animation('state', [
       state('void', style({ display: 'none' })),

@@ -4,10 +4,10 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Router, Routes } from '@angular/router';
 import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 
-import {Default} from './src/views/default';
-import {About} from './src/views/about';
-import {MusicPlayer} from './src/views/music-player';
-import {GlobalNav} from './src/components/nav';
+import {Default} from './src/views/default.component';
+import {About} from './src/views/about.component';
+import {MusicPlayer} from './src/views/music-player.component';
+import {GlobalNav} from './src/components/nav.component';
 
 // console.log(About);
 
@@ -23,7 +23,7 @@ import {GlobalNav} from './src/components/nav';
    `,
    directives : [ROUTER_DIRECTIVES, GlobalNav],
    moduleId: module.id,
-   styleUrls: ['app.css']
+   styleUrls: ['app.component.css']
 })
 
 @Routes([

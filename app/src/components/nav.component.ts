@@ -14,7 +14,7 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
    `,
    directives : [ROUTER_DIRECTIVES],
    moduleId: module.id,
-   styleUrls: ['nav.css'],
+   styleUrls: ['nav.component.css'],
    animations: [
     animation('state', [
       state('void', style({ display: 'none' })),

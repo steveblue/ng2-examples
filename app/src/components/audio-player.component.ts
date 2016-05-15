@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MediaService } from '../services/media-service';
-import { Visualizer } from "./vizualizer";
+import { WaveformComponent } from './waveform.component';
 
 @Component({
 selector: 'audio-player',
@@ -10,12 +10,12 @@ template: `
   <audio controls src="{{url}}"
   (play)="onPlay($event)"
   (ended)="onEnded($event)"></audio>
-  <visualizer></visualizer>
+  <waveform-monitor></waveform-monitor>
 `,
-directives: [Visualizer],
+directives: [WaveformComponent],
 providers: [MediaService],
 moduleId: module.id,
-styleUrls: ['audio.css']
+styleUrls: ['audio-player.component.css']
 
 })
 

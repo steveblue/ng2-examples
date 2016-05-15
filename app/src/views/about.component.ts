@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'view',
+  moduleId: module.id,
   template: `
   <h1>
     {{ headline }}
@@ -13,8 +14,7 @@ import { Component } from '@angular/core';
   Follow <a href="https://twitter.com/iplayitofflegit">@iplayitofflegit</a> on Twitter.
   </p>
   `,
-  moduleId: module.id,
-  styleUrls: ['about.css']
+  styleUrls: ['about.component.css']
 })
 
 export class About {

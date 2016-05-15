@@ -1,7 +1,7 @@
 import { Component, EventEmitter } from '@angular/core';
 
 import { Media } from "../schema/media";
-import { TrackItem } from './track-item';
+import { TrackItem } from './track-item.component';
 
 
 @Component({
@@ -16,7 +16,7 @@ import { TrackItem } from './track-item';
   </track-item>
 `,
   moduleId: module.id,
-  styleUrls: ['track-list.css'],
+  styleUrls: ['track-list.component.css'],
   directives: [TrackItem]
 })
 

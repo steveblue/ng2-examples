@@ -11,7 +11,7 @@ template: `
   <span class="track__artist track__meta">{{track.artist}}</span>
 `,
 moduleId: module.id,
-styleUrls: ['track-item.css']
+styleUrls: ['track-item.component.css']
 })
 
 export class TrackItem {
