@@ -30,11 +30,10 @@ export class Default {
     this.ref = ref;
   }
   ngOnInit() {
-    setTimeout(()=>{
+    setTimeout(()=>{ //TODO: remove when ngEnter starts working
       
-          this.isVisible = true;
-          this.ref.detectChanges();
-          console.log('Global Nav!', this.isVisible);
+      this.isVisible = true;
+      this.ref.detectChanges();
     
     },100);
   }

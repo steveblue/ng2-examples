@@ -7,6 +7,7 @@ import { LocationStrategy, PathLocationStrategy } from '@angular/common';
 import {Default} from './src/views/default.component';
 import {About} from './src/views/about.component';
 import {MusicPlayer} from './src/views/music-player.component';
+import {UIComponentTest} from './src/views/ui-test.component';
 import {GlobalNav} from './src/components/nav.component';
 
 // console.log(About);
@@ -19,7 +20,6 @@ import {GlobalNav} from './src/components/nav.component';
     <div class="outer-outlet">
       <router-outlet></router-outlet>
     </div>
-
    `,
    directives : [ROUTER_DIRECTIVES, GlobalNav],
    moduleId: module.id,
@@ -29,6 +29,7 @@ import {GlobalNav} from './src/components/nav.component';
 @Routes([
   {path:'/', component: Default},
   {path:'/music', component: MusicPlayer},
+  {path:'/ui', component: UIComponentTest},
   {path:'/about', component: About}
 ])
 

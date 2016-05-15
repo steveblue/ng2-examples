@@ -6,9 +6,10 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
   template:`
     <nav>
       <ul [class.active]="isVisible" @state="isVisible === true ? 'active' : 'hidden'">
-        <li class="nav__item" ><a [routerLink]="['/']" >Home</a></li>
-        <li class="nav__item" ><a [routerLink]="['/music']" >Music Player</a></li>
-        <li class="nav__item" ><a [routerLink]="['/about']" >About</a></li>
+        <li class="nav__item" ><a [routerLink]="['/']" >home</a></li>
+        <li class="nav__item" ><a [routerLink]="['/ui']" >ui</a></li>
+        <li class="nav__item" ><a [routerLink]="['/music']" >music</a></li>
+        <li class="nav__item" ><a [routerLink]="['/about']" >about</a></li>
       </ul>
     </nav>
    `,
