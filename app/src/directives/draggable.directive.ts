@@ -136,18 +136,18 @@ export class DraggableDirective implements OnInit {
     // this.setPosition(newX, newY);
 
     if (this.options.orient === 'is--hor') {
-      this.options.currentValue = scale(newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
+      this.options.currentValue = this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
     } else if (this.options.orient === 'is--vert') {
-      this.options.currentValue = scale(newY, 0, this.elem.clientHeight - 44, this.options.min, this.options.max);
+      this.options.currentValue = this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min, this.options.max);
     } else if (this.options.orient === 'is--joystick') {
-      this.options.currentValue = [scale(newX, 0, this.elem.clientWidth - 44, this.options.min[0], this.options.max[0]),
+      this.options.currentValue = [this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min[0], this.options.max[0]),
         scale(newY, 0, this.elem.clientHeight - 44, this.options.min[1], this.options.max[1])
       ];
     }
 
-    // if (drag) {
-    //   drag(e, this.options.currentValue, e.timeStamp);
-    // }
+    if (this.options.onUpdate) {
+      this.options.onUpdate.emit(this.options.currentValue, e.timeStamp);
+    }
 
   }
 
@@ -165,8 +165,8 @@ export class DraggableDirective implements OnInit {
     if( this.isActive ) {
          this.setPosition(this.newX, this.newY);
     }
- 
 
+     
     if (this.options.orient === 'is--hor') {
       this.options.currentValue = this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
     } else if (this.options.orient === 'is--vert') {
@@ -177,9 +177,11 @@ export class DraggableDirective implements OnInit {
       ];
     }
 
-    // if (drag) {
-    //   drag(e, this.options.currentValue, e.timeStamp);
-    // }
+  
+    if (this.options.onUpdate) {
+      this.options.onUpdate.emit(this.options.currentValue, e.timeStamp);
+    }
+
 
   }
 
@@ -202,9 +204,11 @@ export class DraggableDirective implements OnInit {
       this.elem.removeEventListener('mouseup', this.onMouseUp.bind(this));
     }
 
-    // if (stop) {
-    //   stop(e, this.options.currentValue, e.timeStamp);
-    // }
+  
+    if (this.options.onUpdate) {
+      this.options.onUpdate.emit(this.options.currentValue, e.timeStamp);
+    }
+
   }
 
   // Get Center of Circle

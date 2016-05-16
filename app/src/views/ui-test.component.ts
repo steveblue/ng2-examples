@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { SliderComponent } from '../components/slider.component';
 
 @Component({
@@ -10,14 +10,21 @@ import { SliderComponent } from '../components/slider.component';
   directives: [ SliderComponent ]
 })
 
-export class UIComponentTest {
+export class UIComponentTest implements OnInit {
   public vertOptions: any;
   constructor() {
     this.vertOptions = {
-      orient: 'is--hor',
-      min: 0,
-      max: 255
+      orient: 'is--joystick',
+      min: [0,0],
+      max: [1025,1024],
+      currentValue: [0,0],
+      onUpdate: new EventEmitter();
     };
+  }
+  ngOnInit() {
+     this.vertOptions.onUpdate.subscribe((val)=>{
+       console.log(this.vertOptions.currentValue);
+     });
   }
   
 }
