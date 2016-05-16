@@ -5,15 +5,19 @@ import { SliderComponent } from '../components/slider.component';
   selector: 'view',
   moduleId: module.id,
   template: `
-    <slider></slider>
+    <slider [options]="vertOptions"></slider>
   `,
   directives: [ SliderComponent ]
 })
 
 export class UIComponentTest {
-
+  public vertOptions: any;
   constructor() {
-    
+    this.vertOptions = {
+      orient: 'is--hor',
+      min: 0,
+      max: 255
+    };
   }
   
 }

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, ChangeDetectorRef, ngStyle} from '@angular/core';
+import {Component, EventEmitter, ChangeDetectorRef, ngStyle, Input, OnInit} from '@angular/core';
 
 import {DraggableDirective} from '../directives/draggable.directive';
 
@@ -18,28 +18,27 @@ import {DraggableDirective} from '../directives/draggable.directive';
   styleUrls: ['slider.component.css'],
   directives: [DraggableDirective]
 })
-export class SliderComponent {
+export class SliderComponent implements OnInit{
   options: any;
   pos: EventEmitter<T>;
   transform: string;
-  ref: ChangeDetectorRef
+  ref: ChangeDetectorRef;
+  
+ @Input('options') options: any; 
   
   constructor(ref: ChangeDetectorRef) {
     
     this.ref = ref;
-    this.transform = 'translate3d(120px, 120px, 1px)';
-    this.options = {
-      orient: 'is--vert',
-      min: 0,
-      max: 255,
-      pos: new EventEmitter()
-    };
+    this.transform = 'translate3d(0px, 0px, 1px)';
     
+  }
+  
+  ngOnInit() {
+    
+    this.options.pos = new EventEmitter();
     this.options.pos.subscribe((pos)=>{
-     
-      this.transform = 'translate3d('+parseInt(pos[0])+'px,'+parseInt(pos[1])+'px,'+pos[2]+'px)';
+      this.transform = 'translate3d('+pos[0]+','+pos[1]+','+pos[2]+')';
       this.ref.detectChanges();
-      
     });
   }
 

@@ -9,6 +9,8 @@ import {
 @Directive({
   selector: '[uiDraggable]',
   host: {
+    '(mouseleave)': 'onMouseLeave($event)',
+    '(mouseenter)': 'onMouseEnter($event)',
     '(mousedown)': 'onMouseDown($event)',
     '(mouseup)': 'onMouseUp($event)',
     '(mousemove)': 'onMouseMove($event)'
@@ -32,13 +34,25 @@ export class DraggableDirective implements OnInit {
   public parentTransform : any;
   public containerTransform : any;
   public touchItem : any;
+  public height: number;
+  public width: number;
+  public isActive: boolean;
 
                 
   constructor(private elem: ElementRef) {
     this.elem = elem.nativeElement;
+    console.dir(this.elem.getBoundingClientRect());
   }
 
   @Input('uiDraggable') options: any;
+  
+  onMouseLeave() {
+    this.isActive = false;
+  }
+  
+  onMouseEnter() {
+    this.isActive = true;
+  }
 
   onMouseDown(e) {
     e.preventDefault();
@@ -56,6 +70,8 @@ export class DraggableDirective implements OnInit {
     } else {
       this.elem.addEventListener('mousemove', mousemove.bind(this));
       this.elem.addEventListener('mouseup', mouseup.bind(this));
+      window.addEventListener('mousemove', mousemove.bind(this));
+      window.addEventListener('mouseup', mouseup.bind(this));
     }
 
     if ('ontouchstart' in document.documentElement) {
@@ -136,16 +152,20 @@ export class DraggableDirective implements OnInit {
   }
 
   onMouseMove(e) {
-
+   
     if (this.options.orient === 'is--joystick') {
-      this.elem.parentNode.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 0 0, pointer';
+      this.elem.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 0 0, pointer';
     }
 
-    this.elem.parentNode.style.border = '1px solid rgba(255,255,255,0.3)';
+    this.elem.style.border = '1px solid rgba(255,255,255,0.3)';
 
-    this.newX = e.offsetX;
-    this.newY = e.offsetY;
-    this.setPosition(this.newX, this.newY);
+     this.newX = e.offsetX;
+     this.newY = e.offsetY;
+ 
+    if( this.isActive ) {
+         this.setPosition(this.newX, this.newY);
+    }
+ 
 
     if (this.options.orient === 'is--hor') {
       this.options.currentValue = this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
@@ -178,8 +198,8 @@ export class DraggableDirective implements OnInit {
     if ('ontouchstart' in document.documentElement) {
       this.touchItem = undefined;
     } else {
-      this.elem.removeEventListener('mousemove', mousemove.bind(this));
-      this.elem.removeEventListener('mouseup', mouseup.bind(this));
+      this.elem.removeEventListener('mousemove', this.onMouseMove.bind(this));
+      this.elem.removeEventListener('mouseup', this.onMouseUp.bind(this));
     }
 
     // if (stop) {
@@ -243,26 +263,26 @@ export class DraggableDirective implements OnInit {
 
       if (x <= 0) {
         this.newX = 0;
-      } else if (x > 200) {
-        this.newX = 200;
+      } else if (x > this.elem.clientWidth) {
+        this.newX = this.elem.clientWidth;
       } else {
         this.newX = x;
       }
 
       if (y <= 0) {
         this.newY = 0;
-      } else if (y > 200) {
-        this.newY = 200;
+      } else if (y > this.elem.clientWidth) {
+        this.newY = this.elem.clientWidth;
       } else {
         this.newY = y;
       }
 
-      this.joystickPos = this.circularBounds(this.newX, this.newY, [0, 200 - this.handle.offsetWidth], [0, 200 - this.handle.offsetHeight]);
-      this.newX = this.clamp(this.joystickPos[0], [0, 200 - this.handle.offsetWidth]);
-      this.newY = this.clamp(this.joystickPos[1], [0, 200 - this.handle.offsetHeight]);
+      this.joystickPos = this.circularBounds(this.newX, this.newY, [0, this.elem.clientWidth - this.handle.offsetWidth], [0, this.elem.clientWidth - this.handle.offsetHeight]);
+      this.newX = this.clamp(this.joystickPos[0], [0, this.elem.clientWidth - this.handle.offsetWidth]);
+      this.newY = this.clamp(this.joystickPos[1], [0, this.elem.clientWidth - this.handle.offsetHeight]);
 
       //this.options.node.translate = [this.newX, this.newY, 1];
-      this.options.pos.emit([this.newX, this.newY, 1]);
+      this.options.pos.emit([this.newX+'px', this.newY+'px', 1+'px']);
       //TODO: figure out why width and height need to be hardcoded.
 
     } else {
@@ -283,7 +303,7 @@ export class DraggableDirective implements OnInit {
         this.newY = y;
       }
 
-      this.options.pos.emit([this.newX, this.newY, 1]);
+      this.options.pos.emit([this.newX+'px', this.newY+'px', 1+'px']);
     //  this.options.node.translate = [newX, newY, 1];
     }
 
@@ -292,7 +312,13 @@ export class DraggableDirective implements OnInit {
 
   ngOnInit() {
     this.handle = this.elem.getElementsByClassName('ui--slider-handle')[0];
-    console.log(this.options, this.handle);
+    this.height = this.elem.clientHeight;
+    this.width = this.elem.clientWidth;
+    if (this.options.orient === 'is--joystick') {
+       this.options.pos.emit(['50%', '50%', '1px']);
+    }
+
+    //console.log(this.options, this.handle);
   }
 
 }
