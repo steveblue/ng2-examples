@@ -6,6 +6,7 @@ import {
   OnInit
 } from '@angular/core';
 
+
 @Directive({
   selector: '[uiDraggable]',
   host: {
@@ -13,82 +14,74 @@ import {
     '(mouseenter)': 'onMouseEnter($event)',
     '(mousedown)': 'onMouseDown($event)',
     '(mouseup)': 'onMouseUp($event)',
-    '(mousemove)': 'onMouseMove($event)'
+    '(mousemove)': 'onMouseMove($event)',
+    '(touchstart)': 'onMouseDown($event)',
+    '(touchend)': 'onMouseUp($event)'
   }
 })
 
 export class DraggableDirective implements OnInit {
 
-  public elem : any;
-  public handle : any;
-  public startX : number;
-  public startY : number;
-  public newX : number;
-  public newY : number;
-  public joystickPos : number[];
-  public target : any;
-  public start : any;
-  public stop : any;
-  public drag : any;
-  public component : any;
-  public parentTransform : any;
-  public containerTransform : any;
-  public touchItem : any;
+  public elem: any;
+  public handle: any;
+  public startX: number;
+  public startY: number;
+  public newX: number;
+  public newY: number;
+  public joystickPos: number[];
+  public target: any;
+  public touchItem: any;
   public height: number;
   public width: number;
   public isActive: boolean;
+  public isPositionable: boolean;
+  public rect: any;
 
-                
   constructor(private el: ElementRef) {
     this.elem = el.nativeElement;
-    console.dir(this.elem.getBoundingClientRect());
   }
 
   @Input('uiDraggable') options: any;
-  
+
   onMouseLeave() {
-    this.isActive = false;
+    this.isPositionable = false;
   }
-  
+
   onMouseEnter() {
-    this.isActive = true;
+    if (this.isActive) {
+      this.isPositionable = true;
+    }
   }
 
   onMouseDown(e) {
     e.preventDefault();
-    
-    var mousemove = this.onMouseMove;
-    var mouseup = this.onMouseUp;
-    var mousemove = this.onMouseMove;
+
+    this.isActive = true;
+    this.isPositionable = true;
 
     this.startX = e.clientX - this.elem.offsetLeft;
     this.startY = e.clientY - this.elem.offsetTop;
 
     if ('ontouchstart' in document.documentElement) {
-      this.elem.addEventListener('touchmove', mousemove.bind(this));
-      this.elem.addEventListener('touchend', mouseup.bind(this));
+      this.elem.addEventListener('touchmove', this.onTouchMove.bind(this));
+      this.elem.addEventListener('touchend', this.onMouseUp.bind(this));
     } else {
-      this.elem.addEventListener('mousemove', mousemove.bind(this));
-      this.elem.addEventListener('mouseup', mouseup.bind(this));
-      window.addEventListener('mousemove', mousemove.bind(this));
-      window.addEventListener('mouseup', mouseup.bind(this));
+      this.elem.addEventListener('mousemove', this.onMouseMove.bind(this));
+      this.elem.addEventListener('mouseup', this.onMouseUp.bind(this));
+      window.addEventListener('mousemove', this.onMouseMove.bind(this));
+      window.addEventListener('mouseup', this.onMouseUp.bind(this));
     }
 
     if ('ontouchstart' in document.documentElement) {
       e.preventDefault();
+
       if (this.touchItem === undefined) {
         this.touchItem = e.touches.length - 1; // make this touch = the latest touch in the touches list instead of using event
       }
-      // containerTransform = this.elem.parentNode.parentNode.parentNode.parentNode.style.transform.split(',');
-      // parentTransform = this.elem.parentNode.parentNode.parentNode.style.transform.split(',');
-      // newX = e.touches[this.touchItem].pageX -
-      //   (parseInt(parentTransform[12].trim()) +
-      //     parseInt(containerTransform[12].trim())) -
-      //   (handle[0].clientWidth / 2);
-      // newY = e.touches[this.touchItem].pageY -
-      //   (parseInt(parentTransform[13].trim()) +
-      //     parseInt(containerTransform[13].trim())) -
-      //   (handle[0].clientWidth / 2);
+
+      this.newX = e.touches[this.touchItem].pageX - this.rect.left - (this.handle.clientWidth / 2);
+      this.newY = e.touches[this.touchItem].pageY - this.rect.top - (this.handle.clientWidth / 2);
+
     } else {
 
       this.newX = e.offsetX;
@@ -98,42 +91,28 @@ export class DraggableDirective implements OnInit {
 
     this.setPosition(this.newX, this.newY);
 
-
-    // if (start) {
-    //   start(e, this.options.currentValue, e.timeStamp);
-    // }
-
   }
 
   // Handle drag event
   onTouchMove(e) {
 
     e.preventDefault();
-    // e.stopPropagation();
 
     if (this.options.orient === 'is--joystick') {
-      this.elem.parentNode.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 0 0, pointer';
+      this.elem.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 0 0, pointer';
     }
 
-    this.elem.parentNode.style.border = '1px solid rgba(255,255,255,0.3)';
+    this.elem.style.border = '1px solid rgba(255,255,255,0.3)';
+    this.handle.style.opacity = '0.5';
 
     if (this.touchItem === undefined) {
       this.touchItem = e.touches.length - 1; // make this touch = the latest touch in the touches list instead of using event
     }
 
-    // containerTransform = this.elem.parentNode.parentNode.parentNode.parentNode.style.transform.split(',');
-    // parentTransform = this.elem.parentNode.parentNode.parentNode.style.transform.split(',');
+    this.newX = e.touches[this.touchItem].pageX - this.rect.left - (this.handle.clientWidth / 2);
+    this.newY = e.touches[this.touchItem].pageY - this.rect.top - (this.handle.clientWidth / 2);
 
-    // newX = e.touches[this.touchItem].pageX -
-    //   (parseInt(parentTransform[12].trim()) +
-    //     parseInt(containerTransform[12].trim())) -
-    //   (handle[0].clientWidth / 2);
-    // newY = e.touches[this.touchItem].pageY -
-    //   (parseInt(parentTransform[13].trim()) +
-    //     parseInt(containerTransform[13].trim())) -
-    //   (handle[0].clientWidth / 2);
-    // // console.log(newX, newY);
-    // this.setPosition(newX, newY);
+    this.setPosition(this.newX, this.newY);
 
     if (this.options.orient === 'is--hor') {
       this.options.currentValue = this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
@@ -152,34 +131,37 @@ export class DraggableDirective implements OnInit {
   }
 
   onMouseMove(e) {
-   
+
     if (this.options.orient === 'is--joystick') {
       this.elem.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 0 0, pointer';
     }
-
-    this.elem.style.border = '1px solid rgba(255,255,255,0.3)';
-
-     this.newX = e.offsetX;
-     this.newY = e.offsetY;
- 
-    if( this.isActive ) {
-         this.setPosition(this.newX, this.newY);
+    
+    if(this.isActive) {
+      this.elem.style.border = '1px solid rgba(255,255,255,0.3)';
+      this.handle.style.opacity = '0.5';
+      this.newX = e.offsetX;
+      this.newY = e.offsetY;
     }
 
-     
-    if (this.options.orient === 'is--hor') {
-      this.options.currentValue = this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
-    } else if (this.options.orient === 'is--vert') {
-      this.options.currentValue = this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min, this.options.max);
-    } else if (this.options.orient === 'is--joystick') {
-      this.options.currentValue = [this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min[0], this.options.max[0]),
-        this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min[1], this.options.max[1])
-      ];
-    }
+    if (this.isPositionable) {
 
-  
-    if (this.options.onUpdate) {
-      this.options.onUpdate.emit(this.options.currentValue, e.timeStamp);
+      this.setPosition(this.newX, this.newY);
+
+
+      if (this.options.orient === 'is--hor') {
+        this.options.currentValue = this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min, this.options.max);
+      } else if (this.options.orient === 'is--vert') {
+        this.options.currentValue = this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min, this.options.max);
+      } else if (this.options.orient === 'is--joystick') {
+        this.options.currentValue = [this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min[0], this.options.max[0]),
+          this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min[1], this.options.max[1])
+        ];
+      }
+
+      if (this.options.onUpdate) {
+        this.options.onUpdate.emit(this.options.currentValue, e.timeStamp);
+      }
+
     }
 
 
@@ -188,14 +170,13 @@ export class DraggableDirective implements OnInit {
 
   // Unbind drag events
   onMouseUp(e) {
-    
-        
-    var mousemove = this.onMouseMove;
-    var mouseup = this.onMouseUp;
-    var mousemove = this.onMouseMove;
 
-    this.elem.parentNode.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 22 22, pointer';
-    this.elem.parentNode.style.border = '1px solid rgba(255,255,255,0.2)';
+
+    this.isActive = false;
+
+    this.elem.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 22 22, pointer';
+    this.elem.style.border = '1px solid rgba(255,255,255,0.2)';
+    this.handle.style.opacity = '';
 
     if ('ontouchstart' in document.documentElement) {
       this.touchItem = undefined;
@@ -204,7 +185,7 @@ export class DraggableDirective implements OnInit {
       this.elem.removeEventListener('mouseup', this.onMouseUp.bind(this));
     }
 
-  
+
     if (this.options.onUpdate) {
       this.options.onUpdate.emit(this.options.currentValue, e.timeStamp);
     }
@@ -235,8 +216,10 @@ export class DraggableDirective implements OnInit {
 
     return ((v - min) / (max - min)) * (gmax - gmin) + gmin;
 
-  };
+  }
+  
   // Find if cursor is within radius of elem
+  
   circularBounds(x, y, xRange, yRange) {
 
     var center = this.getCenter(xRange, yRange);
@@ -260,7 +243,7 @@ export class DraggableDirective implements OnInit {
     return Math.max(Math.min(value, range[1]), range[0]);
   }
 
-  // Move ui--slider-handle, within elem
+  // Move handle, within elem
   setPosition(x, y) {
 
     if (this.options.orient === 'is--joystick') {
@@ -286,7 +269,7 @@ export class DraggableDirective implements OnInit {
       this.newY = this.clamp(this.joystickPos[1], [0, this.elem.clientWidth - this.handle.offsetHeight]);
 
       //this.options.node.translate = [this.newX, this.newY, 1];
-      this.options.pos.emit([this.newX+'px', this.newY+'px', 1+'px']);
+      this.options.pos.emit([this.newX + 'px', this.newY + 'px', 1 + 'px']);
       //TODO: figure out why width and height need to be hardcoded.
 
     } else {
@@ -307,22 +290,26 @@ export class DraggableDirective implements OnInit {
         this.newY = y;
       }
 
-      this.options.pos.emit([this.newX+'px', this.newY+'px', 1+'px']);
-    //  this.options.node.translate = [newX, newY, 1];
+      this.options.pos.emit([this.newX + 'px', this.newY + 'px', 1 + 'px']);
+      //  this.options.node.translate = [newX, newY, 1];
     }
 
 
   }
 
   ngOnInit() {
+
     this.handle = this.elem.getElementsByClassName('ui--slider-handle')[0];
     this.height = this.elem.clientHeight;
     this.width = this.elem.clientWidth;
-    if (this.options.orient === 'is--joystick') {
-       this.options.pos.emit(['50%', '50%', '1px']);
-    }
+    this.rect = this.elem.getBoundingClientRect(); //TODO: use Ruler Service instead.
 
-    //console.log(this.options, this.handle);
+    if (this.options.orient === 'is--joystick') {
+      this.options.pos.emit(['50%', '50%', '1px']);
+    }
+    
+    //TODO init based on this.options.currentValue
+    
   }
 
 }
