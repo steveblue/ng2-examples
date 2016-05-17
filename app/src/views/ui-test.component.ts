@@ -18,7 +18,7 @@ export class UIComponentTest implements OnInit {
       min: [0,0],
       max: [1025,1024],
       currentValue: [0,0],
-      onUpdate: new EventEmitter();
+      onUpdate: new EventEmitter()
     };
   }
   ngOnInit() {

@@ -19,8 +19,8 @@ import {
 
 export class DraggableDirective implements OnInit {
 
-  public elem : Element;
-  public handle : Element;
+  public elem : any;
+  public handle : any;
   public startX : number;
   public startY : number;
   public newX : number;
@@ -39,8 +39,8 @@ export class DraggableDirective implements OnInit {
   public isActive: boolean;
 
                 
-  constructor(private elem: ElementRef) {
-    this.elem = elem.nativeElement;
+  constructor(private el: ElementRef) {
+    this.elem = el.nativeElement;
     console.dir(this.elem.getBoundingClientRect());
   }
 
@@ -141,7 +141,7 @@ export class DraggableDirective implements OnInit {
       this.options.currentValue = this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min, this.options.max);
     } else if (this.options.orient === 'is--joystick') {
       this.options.currentValue = [this.scale(this.newX, 0, this.elem.clientWidth - 44, this.options.min[0], this.options.max[0]),
-        scale(newY, 0, this.elem.clientHeight - 44, this.options.min[1], this.options.max[1])
+        this.scale(this.newY, 0, this.elem.clientHeight - 44, this.options.min[1], this.options.max[1])
       ];
     }
 

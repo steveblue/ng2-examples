@@ -1,4 +1,4 @@
-import {Component, EventEmitter, ChangeDetectorRef, ngStyle, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, ChangeDetectorRef, Input, OnInit} from '@angular/core';
 
 import {DraggableDirective} from '../directives/draggable.directive';
 
@@ -19,8 +19,9 @@ import {DraggableDirective} from '../directives/draggable.directive';
   directives: [DraggableDirective]
 })
 export class SliderComponent implements OnInit{
-  options: any;
-  pos: EventEmitter<T>;
+  
+
+  pos: EventEmitter<any>;
   transform: string;
   ref: ChangeDetectorRef;
   
