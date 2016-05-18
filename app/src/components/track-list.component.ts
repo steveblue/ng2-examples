@@ -1,4 +1,4 @@
-import { Component, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Media } from "../schema/media";
 import { TrackItem } from './track-item.component';
@@ -6,8 +6,6 @@ import { TrackItem } from './track-item.component';
 
 @Component({
   selector: 'track-list',
-  inputs: ['trackList'],
-  outputs: ['onTrackSelected'],
   template: `
   <track-item *ngFor="let track of trackList"
    [track]="track"
@@ -21,18 +19,20 @@ import { TrackItem } from './track-item.component';
 })
 
 export class TrackList {
-  trackList: Media[];
-  onTrackSelected: EventEmitter<Media>;
+  
   currentTrack: Media;
   currentUrl: String;
-
+  
+  @Input() trackList: Media[]; 
+  @Output() onselect: EventEmitter<any>;
+  
   constructor() {
-    this.onTrackSelected = new EventEmitter();
+    this.onselect = new EventEmitter();
   }
 
   clicked(track: Media): void {
     this.currentTrack = track;
-    this.onTrackSelected.emit(track);
+    this.onselect.emit(track);
   }
 
   isSelected(track:Media): boolean {

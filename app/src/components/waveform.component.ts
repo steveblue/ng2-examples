@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
+import { Component, OnInit, Output, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { MediaService } from '../services/media-service';
 import { Meter } from '../models/meter';
 
@@ -7,7 +7,6 @@ declare let d3:any;
 @Component({
 selector: 'waveform-monitor',
 moduleId: module.id,
-outputs: ['path'],
 templateUrl: 'waveform.component.html',
 styleUrls: ['waveform.component.css'],
 providers: [MediaService]
@@ -15,7 +14,6 @@ providers: [MediaService]
 
 export class WaveformComponent implements OnInit {
 
-  path: string;
   elem: any;
   mediaService: MediaService;
   width: number;
@@ -24,25 +22,29 @@ export class WaveformComponent implements OnInit {
   meters: any[];
   shape: any;
   selected: number;
+  init: boolean;
+  isVisible: boolean;
   ref: ChangeDetectorRef;
-  //changeDetection: ChangeDetectionStrategy.OnPush;
+  
+  @Output() path: any;
   
   constructor(mediaService: MediaService, ref: ChangeDetectorRef, elem: ElementRef) {
-
+    
+    this.init = false;
     this.mediaService = mediaService;
     this.elem = elem;
     this.ref = ref;
     this.color = '#8DE969';
     this.width = window.innerWidth;
     this.height = 240;
-    this.meters = []; 
-    this.addMeter();   
-
+    this.meters = [];    
+    this.newMeter();
+    this.isVisible = false;
   }
   
   ngOnInit() {
 
-    var x = d3.scale.linear().domain([0, 514]).range([0, window.innerWidth]),
+    var x = d3.scale.linear().domain([0, 1024]).range([0, window.innerWidth]),
         y = d3.scale.linear().domain([0, 255]).range([this.height, 0]),
         line = d3.svg.line()
             .interpolate('cardinal')
@@ -55,20 +57,26 @@ export class WaveformComponent implements OnInit {
       
       res.unshift(0);
       res.push(0);
-      
       this.path = line(res);
       
-      for( let i=0; i < this.meters.length; i++ ) {
-        this.meters[i].level.points[0].x = this.meters[i].position.x;
-        this.meters[i].level.points[1].x = this.meters[i].position.x; 
-        this.meters[i].level.points[0].y = this.height - this.shape.getPointAtLength(this.meters[i].position.x).y; 
-        this.meters[i].level.points[1].y = this.height;
-        this.meters[i].val = this.scale(this.height - this.shape.getPointAtLength(this.meters[i].position.x).y, 0, this.height, 0, 255);
+      if(this.meters.length > 0) {
+        
+        for( let i=0; i < this.meters.length; i++ ) {
+          this.meters[i].level.points[0].x = this.meters[i].position.x;
+          this.meters[i].level.points[1].x = this.meters[i].position.x; 
+          this.meters[i].level.points[0].y = this.height - this.shape.getPointAtLength(this.meters[i].position.x).y; 
+          this.meters[i].level.points[1].y = this.height;
+          this.meters[i].val = this.scale(this.height - this.shape.getPointAtLength(this.meters[i].position.x).y, 0, this.height, 0, 255);
+        }
+        
+        this.ref.detectChanges();
+        
       }
+
 
       //console.log(this.meters[0].val);
       
-      this.ref.detectChanges();
+
 
     });
 
@@ -102,11 +110,31 @@ export class WaveformComponent implements OnInit {
       
    }
    
-   addMeter() {
+    newMeter() {
      
      this.meters.push(new Meter(this.height, this.meters.length));
      this.selected = this.meters.length - 1;
      
+   }
+   
+   addMeter() {
+     
+     if(!this.init) {
+       this.isVisible = true;
+       this.init = true;
+     } else {
+      this.meters.push(new Meter(this.height, this.meters.length));
+      this.selected = this.meters.length - 1;
+     }
+     
+   }
+   
+   hideMeters() {
+     this.isVisible = false;
+   }
+   
+   showMeters() {
+    this.isVisible = true;
    }
    
    onMeterClick(ev, meter) {

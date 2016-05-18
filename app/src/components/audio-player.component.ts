@@ -1,15 +1,16 @@
-import { Component, ElementRef, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Inject, Input, Output, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MediaService } from '../services/media-service';
 import { WaveformComponent } from './waveform.component';
 
 @Component({
 selector: 'audio-player',
-inputs: ['url'],
 template: `
-  <audio controls src="{{url}}"
+  <audio controls src="{{url}}" type="audio/mpeg"
   (play)="onPlay($event)"
-  (ended)="onEnded($event)"></audio>
+  (ended)="onTrackEnded($event)">
+
+  </audio>
   <waveform-monitor></waveform-monitor>
 `,
 directives: [WaveformComponent],
@@ -20,7 +21,8 @@ styleUrls: ['audio-player.component.css']
 })
 
 export class AudioPlayer implements OnInit, OnDestroy {
-  url: String;
+  
+
   audioStream: any;
   elem: HTMLElement;
   audioElem: any;
@@ -30,6 +32,11 @@ export class AudioPlayer implements OnInit, OnDestroy {
   sourceNode: MediaElementAudioSourceNode;
   freqData: Uint8Array;
   mediaService: MediaService;
+  
+  @Input() url: string; 
+  @Input() control: any; 
+  @Output() onended: any;
+  
   constructor(elem: ElementRef, mediaService: MediaService, @Inject('audioContext') private context) {
      this.elem = elem.nativeElement;
      this.mediaService = mediaService;
@@ -39,6 +46,7 @@ export class AudioPlayer implements OnInit, OnDestroy {
      this.processor.connect(this.ctx.destination);
      this.analyzer.connect(this.processor);
      this.freqData = new Uint8Array(this.analyzer.frequencyBinCount);
+     this.onended = new EventEmitter();
   }
   
   ngOnInit() {
@@ -47,6 +55,15 @@ export class AudioPlayer implements OnInit, OnDestroy {
     this.sourceNode = this.ctx.createMediaElementSource(this.audioElem);
     this.sourceNode.connect(this.analyzer);
     this.sourceNode.connect(this.ctx.destination);
+ 
+    this.control.subscribe((control)=>{
+      if(control.action === 'play') {
+        this.audioElem.play();
+      }
+      if(control.action === 'pause') {
+        this.audioElem.pause();
+      }
+    });
     
   }
   
@@ -59,27 +76,30 @@ export class AudioPlayer implements OnInit, OnDestroy {
   
   onPlay(ev) {
 
-    var uint8ArrayToArray = function(uint8Array) {
-        var array = [];
+    let uint8ArrayToArray = function(uint8Array) {
+        let array = [];
 
-        for (var i = 0; i < uint8Array.byteLength; i++) {
+        for (let i = 0; i < uint8Array.byteLength; i++) {
             array[i] = uint8Array[i];
         }
 
         return array;
     };
 
-    this.processor.onaudioprocess = () => {
+    this.processor.onaudioprocess = (e) => {
+
         this.analyzer.getByteFrequencyData(this.freqData);
         this.mediaService.setFrequencyData(uint8ArrayToArray(this.freqData));
+
     };
 
   }
 
-  onEnded(ev) {
-    // this.sourceNode.disconnect();
-    // this.sourceNode = null;
+  onTrackEnded(ev) {
+    
     this.processor.onaudioprocess = function() {};
+    this.onended.emit();
+    
   }
 
 }

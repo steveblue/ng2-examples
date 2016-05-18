@@ -1,19 +1,25 @@
-<svg [attr.width]="44" 
+
+<svg [attr.width]="width" 
       [attr.height]="44"
       (click)="addMeter($event)">
-   <line [attr.x1]="0" 
-         [attr.x2]="22" 
-         [attr.y1]="11" 
-         [attr.y2]="11"
-         [attr.stroke]="meters[0].level.color"
-         [attr.stroke-width]="1"></line>
-   <line [attr.x1]="11" 
-         [attr.x2]="11" 
-         [attr.y1]="0" 
-         [attr.y2]="22"
-         [attr.stroke]="meters[0].level.color"
-         [attr.stroke-width]="1"></line>
+      
+   <g class="control__group">
+      <line [attr.x1]="0" 
+            [attr.x2]="22" 
+            [attr.y1]="11" 
+            [attr.y2]="11"
+            [attr.stroke]="meters[0].level.color"
+            [attr.stroke-width]="1"></line>
+      <line [attr.x1]="11" 
+            [attr.x2]="11" 
+            [attr.y1]="0" 
+            [attr.y2]="22"
+            [attr.stroke]="meters[0].level.color"
+            [attr.stroke-width]="1"></line>
+    </g>
+    
  </svg>
+ 
  <svg [attr.width]="width" 
       [attr.height]="height"
       (mousemove)="onMouseMove($event)"
@@ -22,22 +28,26 @@
          [attr.d]="path" 
          [attr.fill]="color">
    </path>
-   <line *ngFor="let meter of meters"
-         [attr.x1]="meter.level.points[0].x" 
-         [attr.x2]="meter.level.points[1].x" 
-         [attr.y1]="meter.playhead.points[0].y" 
-         [attr.y2]="meter.playhead.points[1].y"
-         [attr.stroke]="meter.playhead.color"
-         [attr.stroke-width]="meter.playhead.stroke"
-         (click)="onMeterClick($event, meter)">
-   </line>
-   <line *ngFor="let meter of meters"
-         [attr.x1]="meter.level.points[0].x" 
-         [attr.x2]="meter.level.points[1].x" 
-         [attr.y1]="meter.level.points[0].y" 
-         [attr.y2]="meter.level.points[1].y"
-         [attr.stroke]="meter.level.color"
-         [attr.stroke-width]="meter.level.stroke"
-         (click)="onMeterClick($event, meter)">
-   </line>
+   <g *ngFor="let meter of meters" >
+      <line *ngIf="meters.length > 0"
+            [attr.x1]="meter.level.points[0].x" 
+            [attr.x2]="meter.level.points[1].x" 
+            [attr.y1]="meter.playhead.points[0].y" 
+            [attr.y2]="meter.playhead.points[1].y"
+            [attr.stroke]="meter.playhead.color"
+            [attr.stroke-width]="meter.playhead.stroke"
+            [style.opacity]="isVisible === true ? 1 : 0"
+            (click)="onMeterClick($event, meter)">
+      </line>
+      <line *ngIf="meters.length > 0"
+            [attr.x1]="meter.level.points[0].x" 
+            [attr.x2]="meter.level.points[1].x" 
+            [attr.y1]="meter.level.points[0].y" 
+            [attr.y2]="meter.level.points[1].y"
+            [attr.stroke]="meter.level.color"
+            [attr.stroke-width]="meter.level.stroke"
+            [style.opacity]="isVisible === true ? 1 : 0"
+            (click)="onMeterClick($event, meter)">
+      </line>
+   </g>
  </svg>

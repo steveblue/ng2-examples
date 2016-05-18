@@ -1,23 +1,74 @@
 {
   "media": [{
-      "artist": "Beach House",
-      "title": "Myth",
-      "url": "/assets/music/01-myth.m4a",
-      "imageUrl": "/assets/music/album-artwork.png",
+      "artist": "Radiohead",
+      "title": "Burn The Witch",
+      "url": "/assets/music/radiohead/01-burn-the-witch-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
       "index": 1
     }, {
 
-      "artist": "Beach House",
-      "title": "Wild",
-      "url": "/assets/music/02-wild.m4a",
-      "imageUrl": "/assets/music/album-artwork.png",
+      "artist": "Radiohead",
+      "title": "Daydreaming",
+      "url": "/assets/music/radiohead/02-daydreaming-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
       "index": 2
     }, {
-      "artist": "Beach House",
-      "title": "Lazuli",
-      "url": "/assets/music/03-lazuli.m4a",
-      "imageUrl": "/assets/music/album-artwork.png",
+      "artist": "Radiohead",
+      "title": "Decks Dark",
+      "url": "/assets/music/radiohead/03-decks-dark-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
       "index": 3
+    }, {
+      "artist": "Radiohead",
+      "title": "Desert Island Disk",
+      "url": "/assets/music/radiohead/04-desert-island-disk-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 4
+    }, {
+
+      "artist": "Radiohead",
+      "title": "Ful Stop",
+      "url": "/assets/music/radiohead/05-ful-stop-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 5
+    }, {
+      "artist": "Radiohead",
+      "title": "Glass Eyes",
+      "url": "/assets/music/radiohead/06-glass-eyes-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 6
+    },
+    {
+      "artist": "Radiohead",
+      "title": "Identikit",
+      "url": "/assets/music/radiohead/07-identikit-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 7
+    }, {
+      "artist": "Radiohead",
+      "title": "The Numbers",
+      "url": "/assets/music/radiohead/08-the-numbers-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 8
+    }, {
+      "artist": "Radiohead",
+      "title": "Present Tense",
+      "url": "/assets/music/radiohead/09-present-tense-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 9
+    }, {
+
+      "artist": "Radiohead",
+      "title": "Tinker Tailor Soldier Sailor Rich Man Poor Man Beggar Man Thief",
+      "url": "/assets/music/radiohead/10-tinker-tailor-soldier-sailor-rich-man-poor-man-beggar-man-thief-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 10
+    }, {
+      "artist": "Radiohead",
+      "title": "True Love Waits",
+      "url": "/assets/music/radiohead/11-true-love-waits-AAC.mp4",
+      "imageUrl": "/assets/music/radiohead/cover.jpg",
+      "index": 11
     }
   ]
 }

@@ -3,7 +3,7 @@ var gulp      = require('gulp'),
 
     fs          = require('fs'),
     http        = require('http'),
-    connect     = require('connect'),
+    express     = require('express'),
     st          = require('st'),
     livereload  = require('gulp-livereload'),
     util        = require('gulp-util'),
@@ -71,14 +71,19 @@ var fallback = function(root){
 gulp.task('server:dev:start', function(callback){
 
   // Create Connect Server
-  server = connect();
+  server = express();
 
   util.log('Local server starting up hosted at: ', util.colors.green(config.HOST));
-  util.log('Connect server listening on port: ', util.colors.green(config.HOST_PORT));
+  util.log('Express server listening on port: ', util.colors.green(config.HOST_PORT));
   //util.log('Connecting to API at: ', util.colors.green(config.API_HOST));
 
   // Add serve static middleware
+  express.static.mime.define({'audio/mpeg': ['mp4']});
   server.use( st(options.dev.st) );
+  
+  
+ 
+  server.use(express.static(devRoot + '/assets'));
 
   // Fallback to /index.html
   server.use(fallback(devRoot));
