@@ -21,7 +21,7 @@ styleUrls: ['audio-player.component.css']
 })
 
 export class AudioPlayer implements OnInit, OnDestroy {
-  
+
 
   audioStream: any;
   elem: HTMLElement;
@@ -32,11 +32,12 @@ export class AudioPlayer implements OnInit, OnDestroy {
   sourceNode: MediaElementAudioSourceNode;
   freqData: Uint8Array;
   mediaService: MediaService;
-  
-  @Input() url: string; 
-  @Input() control: any; 
+
+  @Input() url: string;
+  @Input() control: any;
   @Output() onended: any;
-  
+  @Output() controls: any;
+
   constructor(elem: ElementRef, mediaService: MediaService, @Inject('audioContext') private context) {
      this.elem = elem.nativeElement;
      this.mediaService = mediaService;
@@ -48,14 +49,14 @@ export class AudioPlayer implements OnInit, OnDestroy {
      this.freqData = new Uint8Array(this.analyzer.frequencyBinCount);
      this.onended = new EventEmitter();
   }
-  
+
   ngOnInit() {
 
     this.audioElem = this.elem.querySelector('audio');
     this.sourceNode = this.ctx.createMediaElementSource(this.audioElem);
     this.sourceNode.connect(this.analyzer);
     this.sourceNode.connect(this.ctx.destination);
- 
+
     this.control.subscribe((control)=>{
       if(control.action === 'play') {
         this.audioElem.play();
@@ -64,16 +65,16 @@ export class AudioPlayer implements OnInit, OnDestroy {
         this.audioElem.pause();
       }
     });
-    
+
   }
-  
+
   ngOnDestroy() {
-    
+
     this.sourceNode.disconnect();
     this.sourceNode = null;
-    
+
   }
-  
+
   onPlay(ev) {
 
     let uint8ArrayToArray = function(uint8Array) {
@@ -96,10 +97,10 @@ export class AudioPlayer implements OnInit, OnDestroy {
   }
 
   onTrackEnded(ev) {
-    
+
     this.processor.onaudioprocess = function() {};
     this.onended.emit();
-    
+
   }
 
 }

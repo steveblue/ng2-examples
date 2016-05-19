@@ -69,6 +69,13 @@
       "url": "/assets/music/radiohead/11-true-love-waits-AAC.mp4",
       "imageUrl": "/assets/music/radiohead/cover.jpg",
       "index": 11
-    }
+    },
+    {
+        "artist": "Beach House",
+        "title": "Lazuli",
+        "url": "/assets/music/beach-house/03-lazuli.m4a",
+        "imageUrl": "/assets/music/beach-house/album-artwork.png",
+        "index": 12
+      }
   ]
 }
