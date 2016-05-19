@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ElementRef, OnInit } from '@angular/core';
 
 import { Media } from "../schema/media";
 import { TrackItem } from './track-item.component';
@@ -18,29 +18,75 @@ import { TrackItem } from './track-item.component';
   directives: [TrackItem]
 })
 
-export class TrackList {
+export class TrackList implements OnInit {
   
   currentTrack: Media;
-  currentUrl: String;
+  elem: any;
   
   @Input() trackList: Media[]; 
+  @Input() control: EventEmitter<any>; 
   @Output() onselect: EventEmitter<any>;
   
-  constructor() {
+  constructor(private el: ElementRef) {
+    
     this.onselect = new EventEmitter();
+    this.elem = el.nativeElement;
+    
+  }
+  
+  setTrack(track:Media): void {
+    
+     this.currentTrack = track;
+     
+     setTimeout(()=>{ // TODO: figure out better way than setTimeout
+       
+        var self = this;
+        var mult = 10;
+        var frame = this.elem.scrollTop;
+        var end = this.elem.querySelectorAll('.selected')[0].offsetTop;
+        var cb = () => {
+  
+           if(frame >= end) {
+             
+             return;
+          
+           } else {
+             
+              frame += mult;
+              this.elem.scrollTop = frame;
+              window.requestAnimationFrame(cb);
+      
+           }
+
+        };
+        
+        window.requestAnimationFrame(cb);
+ 
+     },100);
+    
+  }
+  
+  ngOnInit() {
+    
+    this.control.subscribe((control)=>{
+      this.setTrack(control.track);
+    });
+    
   }
 
   clicked(track: Media): void {
-    this.currentTrack = track;
+
     this.onselect.emit(track);
+    
   }
 
   isSelected(track:Media): boolean {
-    if (!track || !this.currentTrack) {
+    
+    if (!track || !this.currentTrack || this.currentTrack.url !== track.url) {
       return false;
     }
-    this.currentUrl = this.currentTrack.url;
-    return track.title === this.currentTrack.title;
+
+    return track.url === this.currentTrack.url;
 
   }
 

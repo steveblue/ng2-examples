@@ -20,9 +20,7 @@ const packageNames: string[] = [
     '@angular/http',
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
-    '@angular/router',
-    '@angular/testing',
-    '@angular/upgrade',
+    '@angular/router'
   ];
 
 packageNames.forEach(function(pkgName) {

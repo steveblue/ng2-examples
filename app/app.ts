@@ -2,7 +2,7 @@ import { Component, provide, ElementRef } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Router, Routes } from '@angular/router';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+//import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 import {Default} from './src/views/default.component';
 import {About} from './src/views/about.component';
@@ -43,6 +43,6 @@ export class App {
 
 bootstrap(App, [
   ROUTER_PROVIDERS,
-  HTTP_PROVIDERS,
-  provide(LocationStrategy, { useClass : HashLocationStrategy })
+  HTTP_PROVIDERS//,
+  //provide(LocationStrategy, { useClass : HashLocationStrategy })
 ]);

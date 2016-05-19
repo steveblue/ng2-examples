@@ -19,6 +19,7 @@ import { AudioPlayer } from "../components/audio-player.component";
     
     <track-list
       [trackList]="tracks"
+      [control]="controller"
       (onselect)="onTrackSelected($event)">
     </track-list>
 
