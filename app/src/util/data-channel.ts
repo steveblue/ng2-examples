@@ -113,7 +113,7 @@ export class DataChannel {
   }
 
   onOffer(msg) {
-    var RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription;
+    var RTCSessionDescription = (<any>window).RTCSessionDescription ||  (<any>window).mozRTCSessionDescription;
     this.hasPulse = true;
     if(this.debug) console.log('Client has pulse');
     this.remotePeer = msg.sender;
@@ -130,13 +130,13 @@ export class DataChannel {
   }
 
   onAnswerSignal(msg) {
-    var RTCSessionDescription = window.RTCSessionDescription || window.mozRTCSessionDescription;
+    var RTCSessionDescription =  (<any>window).RTCSessionDescription ||  (<any>window).mozRTCSessionDescription;
     if(this.debug) console.log('Handling answer from '+ this.remotePeer);
     this.peerConnection.setRemoteDescription(new RTCSessionDescription(msg));
   }
 
   onCandidateSignal(msg) {
-    var candidate = new RTCIceCandidate(msg);
+    var candidate = new  (<any>window).RTCIceCandidate(msg);
     if(this.debug) console.log('Adding candidate to peerConnection: '+ this.remotePeer);
     this.peerConnection.addIceCandidate(candidate);
   }
@@ -235,8 +235,8 @@ export class DataChannel {
 
   init() {
 
-    var RTCPeerConnection = window.RTCPeerConnection || window.mozRTCPeerConnection ||
-                        window.webkitRTCPeerConnection;
+    var RTCPeerConnection =  (<any>window).RTCPeerConnection ||  (<any>window).mozRTCPeerConnection ||
+                         (<any>window).webkitRTCPeerConnection;
 
     this.peerConnection = new RTCPeerConnection(this.server);
     this.peerConnection.ondatachannel = this.onDataChannel.bind(this);

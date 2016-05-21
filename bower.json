@@ -7,8 +7,5 @@
     "**/.*",
     "node_modules",
     "bower_components"
-  ],
-  "dependencies": {
-    "headjs": "=1.0.3"
-  }
+  ]
 }

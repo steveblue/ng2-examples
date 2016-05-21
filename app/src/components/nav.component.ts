@@ -9,6 +9,7 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
         <li class="nav__item" ><a [routerLink]="['/']" >home</a></li>
         <li class="nav__item" ><a [routerLink]="['/ui']" >ui</a></li>
         <li class="nav__item" ><a [routerLink]="['/music']" >music</a></li>
+        <li class="nav__item" ><a [routerLink]="['/webrtc/client']" >webrtc</a></li>
         <li class="nav__item" ><a [routerLink]="['/about']" >about</a></li>
       </ul>
     </nav>
@@ -37,13 +38,13 @@ export class GlobalNav implements OnInit {
     //console.log('Global Nav!', this.isVisible);
   }
   ngOnInit() {
-  
+
     setTimeout(()=>{
-      
+
           this.isVisible = true;
           this.ref.detectChanges();
          // console.log('Global Nav!', this.isVisible);
-    
+
     },100);
   }
 }
