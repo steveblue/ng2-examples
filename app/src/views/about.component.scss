@@ -6,3 +6,12 @@
   height: auto;
   padding: 30px;
 }
+
+input[type='text'] {
+  background: #020202;
+  border: 1px solid rgba(255,255,255,0.2);
+  outline: none;
+  margin-top: 10px;
+  height: 24px;
+  color: rgba(255,255,255,0.5);
+}

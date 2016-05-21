@@ -8,6 +8,8 @@ import {Default} from './src/views/default.component';
 import {About} from './src/views/about.component';
 import {MusicPlayer} from './src/views/music-player.component';
 import {UIComponentTest} from './src/views/ui-test.component';
+import {DataChannelServer} from './src/views/rtc-server.component';
+import {DataChannelClient} from './src/views/rtc-client.component';
 import {GlobalNav} from './src/components/nav.component';
 
 // console.log(About);
@@ -30,15 +32,17 @@ import {GlobalNav} from './src/components/nav.component';
   {path:'/', component: Default},
   {path:'/music', component: MusicPlayer},
   {path:'/ui', component: UIComponentTest},
-  {path:'/about', component: About}
+  {path:'/about', component: About},
+  {path:'/webrtc/client', component: DataChannelClient},
+  {path:'/webrtc/server', component: DataChannelServer}
 ])
 
 export class App {
-  
+
   constructor(router: Router) {
-    console.log(router);
+    //console.log(router);
   }
-  
+
 }
 
 bootstrap(App, [
