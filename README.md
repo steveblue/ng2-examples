@@ -110,4 +110,20 @@ This boilerplate is the starter code for any Angular Project. It includes a gulp
 
 `gulp prod` will copy all files outlined in config.paths.json to /build/prod/ and create a workable build that can be deployed to a staging / production server. Modify the file globs that are copied in config.paths.json and/or modify the gulp tasks as needed.
 
-head.js is used to inject all dependencies prior to bootstrapping the app.
+head.js is used to inject all dependencies in the <head> prior to bootstrapping the app.
+
+
+
+If you include a `conf.ts` in `app/src` that looks like the following:
+
+```
+var config = {
+  room: 'my-room',
+  username:  'any-unique-string',
+  server: 'https://my-server-name-here.firebaseio.com/'
+};
+
+export default config;
+```
+
+you can then test out the DataChannel @Injectable at `/webrtc/client`.

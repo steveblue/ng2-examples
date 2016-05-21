@@ -16,3 +16,4 @@ build
 /app/src/*/*.css
 .vscode/
 typings/
+app/src/conf.ts

@@ -8,7 +8,6 @@ import {Default} from './src/views/default.component';
 import {About} from './src/views/about.component';
 import {MusicPlayer} from './src/views/music-player.component';
 import {UIComponentTest} from './src/views/ui-test.component';
-import {DataChannelServer} from './src/views/rtc-server.component';
 import {DataChannelClient} from './src/views/rtc-client.component';
 import {GlobalNav} from './src/components/nav.component';
 
@@ -33,8 +32,7 @@ import {GlobalNav} from './src/components/nav.component';
   {path:'/music', component: MusicPlayer},
   {path:'/ui', component: UIComponentTest},
   {path:'/about', component: About},
-  {path:'/webrtc/client', component: DataChannelClient},
-  {path:'/webrtc/server', component: DataChannelServer}
+  {path:'/webrtc/client', component: DataChannelClient}
 ])
 
 export class App {
