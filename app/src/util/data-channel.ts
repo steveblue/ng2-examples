@@ -5,14 +5,15 @@ import 'rxjs/add/operator/share';
 
 declare let Firebase:any;
 
-interface DataChannelMessage {
-  id: number;
-  createdAt: Date;
-  key: string;
-  type: string;
-  sender: string;
-  data: any;
-}
+// export class DataChannelMessage {
+//   id: number;
+//   createdAt: Date;
+//   key: string;
+//   type: string;
+//   sender: string;
+//   data: any;
+// }
+
 
 @Injectable()
 export class DataChannel {
@@ -23,9 +24,10 @@ export class DataChannel {
   public conf: any;
   public db: any;
   public url: string;
-  public server: any;
+  public stun: any;
   public remotePeer: any;
   public observer: Observable<any>;
+  public channelObserver: Observer<any>;
   public peerConnection: any;
   public hasPulse: boolean;
   public isOpen: boolean;
@@ -36,9 +38,8 @@ export class DataChannel {
   public connections: any;
   public debug : boolean;
   public isWebSocket: boolean;
-  public channelObserver: Observer<any>;
   public count : number;
-  public dataStore : {
+  public store : {
     messages: any
   };
 
@@ -63,9 +64,9 @@ export class DataChannel {
     this.debug = false;
     
 
-    this.dataStore = { messages: [] };
+    this.store = { messages: [] };
 
-    this.server = {
+    this.stun = {
       iceServers: [{
         url: 'stun:stun.l.google.com:19302'
       }]
@@ -250,27 +251,27 @@ export class DataChannel {
 
   onDataChannelMessage(ev) {
     
-    this.dataStore.messages.push({
+    this.store.messages.push({
       id: this.count++,
       data: ev.data,
       sender: this.remotePeer,
       createdAt: new Date()
     });
-    this.channelObserver.next(this.dataStore.messages);
+    this.channelObserver.next(this.store.messages);
     if(this.debug) console.log('Received Message: ' + ev.data);
 
   }
   
   onWebSocketMessage(ev) {
 
-    this.dataStore.messages.push({
+    this.store.messages.push({
       id: this.count++,
       data: ev.data,
       sender: ev.sender,
       createdAt: new Date()
     });
   
-    this.channelObserver.next(this.dataStore.messages);
+    this.channelObserver.next(this.store.messages);
     if(this.debug) console.log('Received Message: ' + ev.data);
     
   }
@@ -346,7 +347,7 @@ export class DataChannel {
     var RTCPeerConnection =  (<any>window).RTCPeerConnection ||  (<any>window).mozRTCPeerConnection ||
                          (<any>window).webkitRTCPeerConnection;
 
-    this.peerConnection = new RTCPeerConnection(this.server);
+    this.peerConnection = new RTCPeerConnection(this.stun);
     this.peerConnection.ondatachannel = this.onDataChannel.bind(this);
     this.peerConnection.oniceconnectionstatechange = this.onICEStateChange.bind(this);
     this.channel = this.peerConnection.createDataChannel(this.name, this.conf);
@@ -363,6 +364,7 @@ export class DataChannel {
     this.remotePeer = conf.id;
     
     if(!this.isOpen) {
+      
       this.isOpen = true;
       this.emitter.emit('open');
       
@@ -370,8 +372,8 @@ export class DataChannel {
       this.channels.websocket = this.db.child('messages').child(this.id);
       this.channels.websocket.on('child_added', this.onWebSocketSignal.bind(this));
 
-
-      if(this.debug) console.log('Setting up websocket with ' + this.remotePeer);
+      this.hasPulse = true;
+      if(this.debug) console.log('Setting up websocket connection with ' + this.remotePeer);
     }
 
   }

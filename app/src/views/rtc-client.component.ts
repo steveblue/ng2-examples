@@ -38,7 +38,7 @@ export class DataChannelClient {
   constructor(private _ref: ChangeDetectorRef, private _el: ElementRef) {
 
     this.headline = 'DataChannel';
-    this.copy = 'WebRTC DataChannels allow for fast peer to peer communication. This example creates a channel, gives the client a unique identifier (i.e. username), and establishes the connection. Firebase is used for signaling. Once the connection is established, the keyCode for whatever key is typed will appear in the remote UI. Open two windows of Chrome or Firefox to test. A more impressive demo will be coming soon.';
+    this.copy = 'WebRTC DataChannels allow for fast peer to peer communication. This example creates a channel, gives the client a unique identifier (i.e. username), and establishes the connection. Firebase is used for signaling. Once the connection is established, the keyCode for whatever key is typed will appear in the remote UI. Open two windows of Chrome or Firefox to test DataChannel. This service will fallback to WebSocket connection via Firebase if the peer cannot support PeerConnection. A more impressive demo will be coming soon.';
 
     this.ref = _ref;
     this.elem = _el.nativeElement;
