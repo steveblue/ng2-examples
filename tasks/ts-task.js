@@ -1,11 +1,12 @@
 
 var gulp   = require('gulp'),
-    ts     = require('gulp-typescript'),
+    tsc     = require('gulp-typescript'),
     tslint = require('gulp-tslint'),
     stylish = require('gulp-tslint-stylish'),
     merge  = require('merge2'),
     paths  = require('../config.paths'),
     tsConfig = require('../config.ts'),
+    sourcemaps = require('gulp-sourcemaps'),
     config;
 
 
@@ -24,7 +25,7 @@ if(process.argv[2] === 'dev') {
 }
 
 
-var tsProject = ts.createProject(tsConfig);
+var tsProject = tsc.createProject(tsConfig);
 
 gulp.task('ts:lint', function() {
   return gulp.src(paths.ts.lint)
@@ -39,22 +40,19 @@ gulp.task('ts:lint', function() {
       }));
 });
 
+
+
 gulp.task('ts:app', function() {
 
 	var tsResult = gulp.src(paths.ts.src)
-					.pipe(ts(tsProject));
-
-	return merge([ // Merge the two output streams, so this task is finished when the IO of both operations are done.
-		tsResult.dts.pipe(gulp.dest(tsConfig.outDir+'/def')),
-		tsResult.js.pipe(gulp.dest(tsConfig.outDir))
-	]);
-
-  // return gulp.src(paths.ts.src)
-  //   .pipe(ts(tsProject.compilerOptions))
-  //   .pipe(gulp.dest(paths.rootDir+'/app'));
+                    .pipe(sourcemaps.init())
+					.pipe(tsc(tsProject));
+    return tsResult.js
+                    .pipe(sourcemaps.write('.'))
+                    .pipe(gulp.dest(tsConfig.outDir));
 
 });
 
 
 // Lint App Files Default Task
-//gulp.task('ts', ['ts:app']);
+gulp.task('ts', ['ts:app']);

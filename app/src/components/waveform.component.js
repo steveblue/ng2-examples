@@ -115,3 +115,5 @@ var WaveformComponent = (function () {
     return WaveformComponent;
 }());
 exports.WaveformComponent = WaveformComponent;
+
+//# sourceMappingURL=waveform.component.js.map
