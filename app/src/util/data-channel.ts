@@ -60,7 +60,7 @@ export class DataChannel {
     this.connections = {};
     this.remotePeer = null;
     this.isWebSocket = false;
-    this.debug = true;
+    this.debug = false;
     
 
     this.dataStore = { messages: [] };
