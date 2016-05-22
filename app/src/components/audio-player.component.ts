@@ -70,6 +70,7 @@ export class AudioPlayer implements OnInit, OnDestroy {
 
   ngOnDestroy() {
 
+    this.processor.onaudioprocess = function() {};
     this.sourceNode.disconnect();
     this.sourceNode = null;
 

@@ -28,12 +28,13 @@ import {NgClass} from 'angular2/common';
 })
 
 export class DataChannelClient {
-  headline: String;
+  headline: string;
+  copy: string;
   client: any;
   messages: string[];
   isConnected: boolean;
   ref: ChangeDetectorRef;
-  elem: ElementRef;
+  elem: any;
   constructor(private _ref: ChangeDetectorRef, private _el: ElementRef) {
 
     this.headline = 'DataChannel';
@@ -48,7 +49,7 @@ export class DataChannelClient {
   }
   onKeyDown(ev) {
 
-    this.client.dataChannel.send(ev.keyCode.toString());
+    this.client.channel.send(ev.keyCode.toString());
 
     if(ev.keyCode === 13) {
       ev.target.value = '';
@@ -74,7 +75,7 @@ export class DataChannelClient {
           this.elem.querySelector('input').focus();
           this.client.observer.subscribe((res)=>{
             console.log(res[res.length-1]);
-            this.messages.push(res[res.length-1].payload);
+            this.messages.push(res[res.length-1].data);
             this.updateMessages(message);
           });
         }

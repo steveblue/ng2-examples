@@ -8,7 +8,10 @@ declare let Firebase:any;
 interface DataChannelMessage {
   id: number;
   createdAt: Date;
-  payload: any;
+  key: string;
+  type: string;
+  sender: string;
+  data: any;
 }
 
 @Injectable()
@@ -27,15 +30,16 @@ export class DataChannel {
   public hasPulse: boolean;
   public isOpen: boolean;
   public channel: any;
+  public channels: any;
   public dataChannel: any;
   public emitter: EventEmitter<any>;
   public connections: any;
   public debug : boolean;
-
-  private _channelObserver: Observer<any>;
-  private _count : number;
-  private _dataStore : {
-    messages: DataChannelMessage[]
+  public isWebSocket: boolean;
+  public channelObserver: Observer<any>;
+  public count : number;
+  public dataStore : {
+    messages: any
   };
 
   constructor(private _key: string,
@@ -48,16 +52,18 @@ export class DataChannel {
     this.url = _url; // replace with your server name
     this.name = 'channel';
     this.db = new Firebase(this.url);
-    this._count = 0;
+    this.count = 0;
     //this.onmessage = _onmessage || null;
 
     this.hasPulse = false;
     this.isOpen = false;
     this.connections = {};
     this.remotePeer = null;
+    this.isWebSocket = false;
     this.debug = true;
+    
 
-    this._dataStore = { messages: [] };
+    this.dataStore = { messages: [] };
 
     this.server = {
       iceServers: [{
@@ -71,42 +77,68 @@ export class DataChannel {
     };
 
 
-    this.channel = {
+    this.channels = {
       announce: this.db.child('announce'),
       signal: this.db.child('messages').child(this.id)
     };
 
-    this.channel.signal.on('child_added', this.onSignal.bind(self));
-    this.channel.announce.on('child_added', this.onAnnounce.bind(self));
+    this.channels.signal.on('child_added', this.onSignal.bind(self));
+    this.channels.announce.on('child_added', this.onAnnounce.bind(self));
 
     this.emitter = new EventEmitter();
-    this.observer = new Observable(observer =>  this._channelObserver = observer).share();
+    this.observer = new Observable( observer => this.channelObserver = observer ).share();
 
     this.sendAnnounce();
 
   }
 
   sendAnnounce() {
-    this.channel.announce.remove(()=>{
-      this.channel.announce.push({
+    
+    var RTCPeerConnection =  (<any>window).RTCPeerConnection ||  (<any>window).mozRTCPeerConnection ||
+                      (<any>window).webkitRTCPeerConnection;
+    var msg = {
         sharedKey: this.key,
-        id: this.id
-      });
+        id: this.id,
+        method: !RTCPeerConnection ? 'socket' : 'webrtc'
+      };
+      
+    if(!RTCPeerConnection) {
+      this.isWebSocket = true;
+    }
+                       
+    this.channels.announce.remove(()=>{
+      this.channels.announce.push(msg);
       if(this.debug) console.log('Announced our sharedKey is ' + this.key);
       if(this.debug) console.log('Announced our ID is ' + this.id);
     });
+ 
   }
 
   onAnnounce(snapshot) {
     var msg = snapshot.val();
     if (msg.id != this.id && msg.sharedKey == this.key) {
+      
       if(this.debug) console.log('Discovered matching announcement from ' + msg.id);
       this.remotePeer = msg.id;
-      this.init();
-      this.connect();
+      
+      if(msg.method === 'webrtc' && this.isWebSocket === false) {
+          this.init();
+          this.connect();
+      } else {
+        this.sendSignal({
+          id: this.id,
+          key: this.key,
+          url: this.url,
+          type: 'ws-offer'
+        });
+        if(!this.isOpen) {
+          this.initSocket(msg);
+        }
+      }
+       
     }
   }
-
+  
   sendSignal(msg) {
     msg.sender = this.id;
     this.db.child('messages').child(this.remotePeer).push(msg);
@@ -125,7 +157,7 @@ export class DataChannel {
       this.peerConnection.setLocalDescription(sessionDescription);
       this.sendSignal(sessionDescription.toJSON());
     }, function(err) {
-      console.error('Could not create offer', err);
+      if(this.debug) console.error('Could not create offer', err);
     });
   }
 
@@ -149,6 +181,14 @@ export class DataChannel {
 
     if(!this.isOpen) {
       if(this.debug) console.log('Received a \'' + type + '\' signal from ' + sender + ' of type ' + type);
+      if(type == 'message') {
+        this.onWebSocketMessage(msg);
+      }
+      if(type == 'ws-offer') {
+        if(!this.isOpen) {
+          this.initSocket(msg);
+        }
+      }
       if (type == 'offer') {
         this.onOffer(msg);
       }
@@ -188,24 +228,13 @@ export class DataChannel {
   onDataChannel(ev) {
     ev.channel.onmessage = this.onDataChannelMessage.bind(this);
   }
-
-  onDataChannelMessage(ev) {
-    this._dataStore.messages.push({
-      id: this._count++,
-      payload: ev.data,
-      createdAt: new Date()
-    });
-    this._channelObserver.next(this._dataStore.messages);
-    if(this.debug) console.log('Received Message: ' + ev.data);
-
-  }
-
+  
   onDataChannelOpen() {
 
 
-    if(this.debug) console.log('Data channel created! The channel is: '+ this.dataChannel.readyState);
+    if(this.debug) console.log('Data channel created! The channel is: '+ this.channel.readyState);
 
-    if(this.dataChannel.readyState == 'open') {
+    if(this.channel.readyState == 'open') {
 
       this.isOpen = true;
       this.emitter.emit('open');
@@ -217,6 +246,85 @@ export class DataChannel {
   onDataChannelClosed() {
     if(this.debug) console.log('The data channel has been closed!');
   }
+  
+
+  onDataChannelMessage(ev) {
+    
+    this.dataStore.messages.push({
+      id: this.count++,
+      data: ev.data,
+      sender: this.remotePeer,
+      createdAt: new Date()
+    });
+    this.channelObserver.next(this.dataStore.messages);
+    if(this.debug) console.log('Received Message: ' + ev.data);
+
+  }
+  
+  onWebSocketMessage(ev) {
+
+    this.dataStore.messages.push({
+      id: this.count++,
+      data: ev.data,
+      sender: ev.sender,
+      createdAt: new Date()
+    });
+  
+    this.channelObserver.next(this.dataStore.messages);
+    if(this.debug) console.log('Received Message: ' + ev.data);
+    
+  }
+  
+  onWebSocketSignal(snapshot) {
+
+    var msg = snapshot.val();
+    var sender = msg.sender;
+    var type = msg.type;
+
+    if( sender === this.remotePeer ) {
+      if(this.debug) console.log('Received a \'' + type + '\' signal from ' + sender + ' of type ' + type);
+      if(type == 'message') {
+        this.onWebSocketMessage(msg);
+      }
+      if(type == 'ws-offer') {
+        this.initSocket(msg);
+      }
+      if (type == 'offer') {
+        this.onOffer(msg);
+      }
+      else if (type == 'answer') {
+        this.onAnswerSignal(msg);
+      }
+      else if (type == 'candidate' && this.hasPulse) {
+        this.onCandidateSignal(msg);
+      }
+    }
+    
+
+  }
+
+  
+  sendSocketMessage(data: any) {
+    
+     let msg = {
+       type: 'message',
+       sender: this.id,
+       data: data
+     }
+     
+     if(this.debug) console.log('Sending WebSocket message from: '+msg.sender+ ' to: '+this.remotePeer);
+     this.db.child('messages').child(this.remotePeer).push(msg);
+     
+  }
+  
+  createWebSocketChannel() {
+    
+    return {
+      send: this.sendSocketMessage.bind(this)
+    }
+    
+  }
+
 
   connect() {
 
@@ -241,12 +349,30 @@ export class DataChannel {
     this.peerConnection = new RTCPeerConnection(this.server);
     this.peerConnection.ondatachannel = this.onDataChannel.bind(this);
     this.peerConnection.oniceconnectionstatechange = this.onICEStateChange.bind(this);
-    this.dataChannel = this.peerConnection.createDataChannel(this.name, this.conf);
-    this.dataChannel.onopen = this.onDataChannelOpen.bind(this);
-    this.dataChannel.onmessage = this.onDataChannelMessage.bind(this);
+    this.channel = this.peerConnection.createDataChannel(this.name, this.conf);
+    this.channel.onopen = this.onDataChannelOpen.bind(this);
+    this.channel.onmessage = this.onDataChannelMessage.bind(this);
     this.connections[this.remotePeer] = this.peerConnection;
 
     if(this.debug) console.log('Setting up peer connection with ' + this.remotePeer);
+
+  }
+  
+  initSocket(conf: any) {
+    
+    this.remotePeer = conf.id;
+    
+    if(!this.isOpen) {
+      this.isOpen = true;
+      this.emitter.emit('open');
+      
+      this.channel = this.createWebSocketChannel();  
+      this.channels.websocket = this.db.child('messages').child(this.id);
+      this.channels.websocket.on('child_added', this.onWebSocketSignal.bind(this));
+
+
+      if(this.debug) console.log('Setting up websocket with ' + this.remotePeer);
+    }
 
   }
 
