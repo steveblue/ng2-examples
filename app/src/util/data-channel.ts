@@ -48,13 +48,12 @@ export class DataChannel {
               private _url: string) {
 
     var self = this;
-    this.id = _id || Math.random().toString().replace('.', ''); // make uuid?
-    this.key = _key || '1234'; // prompt from user
+    this.id = _id || Math.random().toString().replace('.', ''); // the username, unique id that makes each peer => make uuid?
+    this.key = _key || '1234'; // the room name.
     this.url = _url; // replace with your server name
-    this.name = 'channel';
-    this.db = new Firebase(this.url);
+    this.name = 'channel'; // the name of the channel
+    this.db = new Firebase(this.url); // only supports Firebase for now, support for custom web socket server in the future.
     this.count = 0;
-    //this.onmessage = _onmessage || null;
 
     this.hasPulse = false;
     this.isOpen = false;
