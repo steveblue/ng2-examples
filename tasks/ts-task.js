@@ -47,13 +47,16 @@ gulp.task('ts:app', function() {
 	var tsResult = gulp.src(paths.ts.src)
                     .pipe(sourcemaps.init())
 					.pipe(tsc(tsProject));
-                    
-   return merge([
-		tsResult.dts.pipe(gulp.dest(tsConfig.outDir)),
-		tsResult.js
+   return tsResult.js
                  .pipe(sourcemaps.write('.'))
-                 .pipe(gulp.dest(tsConfig.outDir))
-	]);
+                 .pipe(gulp.dest(tsConfig.outDir));
+                                  
+//    return merge([
+// 		tsResult.dts.pipe(gulp.dest(tsConfig.outDir)),
+// 		tsResult.js
+//                  .pipe(sourcemaps.write('.'))
+//                  .pipe(gulp.dest(tsConfig.outDir))
+// 	]);
 
 });
 

@@ -3,7 +3,7 @@ module.exports = {
   dev:{
     emitDecoratorMetadata: true,
     experimentalDecorators: true,
-    declaration: true,
+    //declaration: true,
     module: 'commonjs',
     target: 'es5',
     noImplicitAny: false,
@@ -13,7 +13,7 @@ module.exports = {
   prod: {
     emitDecoratorMetadata: true,
     experimentalDecorators: true, 
-    declaration: true,
+    //declaration: true,
     module: 'commonjs',
     target: 'es5',
     noImplicitAny: false,
