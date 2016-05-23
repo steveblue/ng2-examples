@@ -20,7 +20,7 @@ import {NgClass} from 'angular2/common';
   <input type="text" (keypress)="onKeyDown($event)"/>
   <ul>
     <li *ngFor="let message of messages">
-      <p>{{message}}</p>
+      <p>{{message.data.val}}</p>
     </li>
   </ul>
   `,
@@ -48,8 +48,12 @@ export class DataChannelClient {
 
   }
   onKeyDown(ev) {
-
-    this.client.channel.send(ev.keyCode.toString());
+    
+    let msg = JSON.stringify({
+      val: ev.keyCode
+    });
+   
+    this.client.channel.send(msg);
 
     if(ev.keyCode === 13) {
       ev.target.value = '';
@@ -74,8 +78,9 @@ export class DataChannelClient {
           this.isConnected = true;
           this.elem.querySelector('input').focus();
           this.client.observer.subscribe((res)=>{
-            console.log(res[res.length-1]);
-            this.messages.push(res[res.length-1].data);
+            let data = res[res.length-1]; 
+            console.log(data);
+            this.messages.push(data);
             this.updateMessages(message);
           });
         }

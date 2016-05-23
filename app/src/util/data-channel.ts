@@ -5,16 +5,6 @@ import 'rxjs/add/operator/share';
 
 declare let Firebase:any;
 
-// export class DataChannelMessage {
-//   id: number;
-//   createdAt: Date;
-//   key: string;
-//   type: string;
-//   sender: string;
-//   data: any;
-// }
-
-
 @Injectable()
 export class DataChannel {
 
@@ -115,6 +105,7 @@ export class DataChannel {
   }
 
   onAnnounce(snapshot) {
+    
     var msg = snapshot.val();
     if (msg.id != this.id && msg.sharedKey == this.key) {
       
@@ -137,14 +128,18 @@ export class DataChannel {
       }
        
     }
+    
   }
   
   sendSignal(msg) {
+    
     msg.sender = this.id;
     this.db.child('messages').child(this.remotePeer).push(msg);
+    
   }
 
   onOffer(msg) {
+    
     var RTCSessionDescription = (<any>window).RTCSessionDescription ||  (<any>window).mozRTCSessionDescription;
     this.hasPulse = true;
     if(this.debug) console.log('Client has pulse');
@@ -159,12 +154,15 @@ export class DataChannel {
     }, function(err) {
       if(this.debug) console.error('Could not create offer', err);
     });
+    
   }
 
   onAnswerSignal(msg) {
+    
     var RTCSessionDescription =  (<any>window).RTCSessionDescription ||  (<any>window).mozRTCSessionDescription;
     if(this.debug) console.log('Handling answer from '+ this.remotePeer);
     this.peerConnection.setRemoteDescription(new RTCSessionDescription(msg));
+    
   }
 
   onCandidateSignal(msg) {
@@ -203,17 +201,22 @@ export class DataChannel {
   }
 
   sendCandidates() {
+    
     this.peerConnection.onicecandidate = this.onICECandidate.bind(this);
+    
   }
 
   onICEStateChange() {
+    
     if (this.peerConnection.iceConnectionState == 'disconnected') {
       if(this.debug) console.log('Client disconnected!');
       this.sendAnnounce();
     }
+    
   }
 
   onICECandidate(ev) {
+    
     var candidate = ev.candidate;
     if (candidate) {
       candidate = candidate.toJSON();
@@ -223,13 +226,17 @@ export class DataChannel {
     } else {
       if(this.debug) console.log('All candidates sent');
     }
+    
   }
 
   onDataChannel(ev) {
+    
     ev.channel.onmessage = this.onDataChannelMessage.bind(this);
+    
   }
   
   onDataChannelOpen() {
+    
 
 
     if(this.debug) console.log('Data channel created! The channel is: '+ this.channel.readyState);
@@ -240,11 +247,14 @@ export class DataChannel {
       this.emitter.emit('open');
 
     }
+    
 
   }
 
   onDataChannelClosed() {
+    
     if(this.debug) console.log('The data channel has been closed!');
+    
   }
   
 
@@ -252,7 +262,7 @@ export class DataChannel {
     
     this.store.messages.push({
       id: this.count++,
-      data: ev.data,
+      data: JSON.parse(ev.data),
       sender: this.remotePeer,
       createdAt: new Date()
     });
@@ -265,7 +275,7 @@ export class DataChannel {
 
     this.store.messages.push({
       id: this.count++,
-      data: ev.data,
+      data: JSON.parse(ev.data),
       sender: ev.sender,
       createdAt: new Date()
     });
@@ -372,6 +382,7 @@ export class DataChannel {
       this.channels.websocket.on('child_added', this.onWebSocketSignal.bind(this));
 
       this.hasPulse = true;
+      if(this.debug) console.log('Client has pulse');
       if(this.debug) console.log('Setting up websocket connection with ' + this.remotePeer);
     }
 
