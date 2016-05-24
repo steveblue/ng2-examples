@@ -109,8 +109,8 @@ export class DraggableDirective implements OnInit {
       this.touchItem = e.touches.length - 1; // make this touch = the latest touch in the touches list instead of using event
     }
 
-    this.newX = e.touches[this.touchItem].pageX - this.rect.left - (this.handle.clientWidth / 2);
-    this.newY = e.touches[this.touchItem].pageY - this.rect.top - (this.handle.clientWidth / 2);
+    this.newX = e.touches[this.touchItem].pageX - this.rect.left - 22;
+    this.newY = e.touches[this.touchItem].pageY - this.rect.top - 66;
 
     this.setPosition(this.newX, this.newY);
 
@@ -177,6 +177,17 @@ export class DraggableDirective implements OnInit {
     this.elem.style.cursor = 'url("/assets/ui/slider-control-icon-transparent-cursor.png") 22 22, pointer';
     this.elem.style.border = '1px solid rgba(255,255,255,0.2)';
     this.handle.style.opacity = '';
+    
+
+    if (this.options.orient === 'is--hor') {
+      this.options.currentValue = 0;
+    } else if (this.options.orient === 'is--vert') {
+      this.options.currentValue = 0;
+    } else if (this.options.orient === 'is--joystick') {
+      this.options.currentValue = [0,0];
+    }
+    
+    // TODO: set cancel flag? these value just happen to work b/c of current min and max
 
     if ('ontouchstart' in document.documentElement) {
       this.touchItem = undefined;
@@ -184,6 +195,8 @@ export class DraggableDirective implements OnInit {
       this.elem.removeEventListener('mousemove', this.onMouseMove.bind(this));
       this.elem.removeEventListener('mouseup', this.onMouseUp.bind(this));
     }
+    
+    
 
 
     if (this.options.onUpdate) {

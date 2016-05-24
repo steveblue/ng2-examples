@@ -4,12 +4,13 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import { ROUTER_PROVIDERS, ROUTER_DIRECTIVES, Router, Routes } from '@angular/router';
 //import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
-import {Default} from './src/views/default.component';
-import {About} from './src/views/about.component';
-import {MusicPlayer} from './src/views/music-player.component';
-import {UIComponentTest} from './src/views/ui-test.component';
-import {DataChannelClient} from './src/views/rtc-client.component';
-import {GlobalNav} from './src/components/nav.component';
+import { Default } from './src/views/default.component';
+import { About } from './src/views/about.component';
+import { MusicPlayer } from './src/views/music-player.component';
+import { UIComponentTest } from './src/views/ui-test.component';
+import { DataChannelClient } from './src/views/rtc-client.component';
+import { RemoteUIDemo } from './src/views/remote-ui-demo.component';
+import { GlobalNav } from './src/components/nav.component';
 
 // console.log(About);
 
@@ -17,7 +18,6 @@ import {GlobalNav} from './src/components/nav.component';
   selector: 'app',
   template:`
     <global-nav></global-nav>
-    <view></view>
     <div class="outer-outlet">
       <router-outlet></router-outlet>
     </div>
@@ -32,6 +32,7 @@ import {GlobalNav} from './src/components/nav.component';
   {path:'/music', component: MusicPlayer},
   {path:'/ui', component: UIComponentTest},
   {path:'/about', component: About},
+  {path:'/remote', component: RemoteUIDemo},
   {path:'/webrtc/client', component: DataChannelClient}
 ])
 

@@ -1,6 +1,6 @@
 import config from '../conf';
 import { Component, ChangeDetectorRef, ElementRef } from '@angular/core';
-import { DataChannel } from '../util/data-channel';
+import { DataChannel } from '../services/data-channel';
 import {NgClass} from 'angular2/common';
 
 @Component({

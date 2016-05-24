@@ -9,8 +9,12 @@
       'lib/systemjs/dist/system.src.js',
       'lib/reflect-metadata/Reflect.js',
       'lib/zone.js/dist/zone.js',
+      'https://cdn.firebase.com/js/client/2.4.2/firebase.js',
       'lib/d3/d3.js',
-      'https://cdn.firebase.com/js/client/2.4.2/firebase.js'
+      'lib/three/three.js',
+      'src/util/FirstPersonControls.js',
+      'src/util/TerrainLoader.js'
+      
     )
     .ready('ALL', function() {
 

@@ -24,7 +24,8 @@ module.exports = {
       'node_modules/reflect-metadata/Reflect.js.map',
       'node_modules/headjs/dist/1.0.0/head.js',
       'node_modules/d3/d3.js',
-      'node_modules/firebase/firebase.js'
+      'node_modules/firebase/firebase.js',
+      'node_modules/three/three.js'
     ],
     min:[
       'node_modules/rxjs/**/*.js',
@@ -38,7 +39,8 @@ module.exports = {
       'node_modules/reflect-metadata/Reflect.js.map',
       'node_modules/headjs/dist/1.0.0/head.load.min.js',
       'node_modules/d3/d3.min.js',
-      'node_modules/firebase/firebase.js'
+      'node_modules/firebase/firebase.js',
+      'node_modules/three/three.min.js'
     ],
     dev:  devDir  + '/lib',
     prod: prodDir + '/lib'
@@ -55,8 +57,10 @@ module.exports = {
     src: ['typings/browser.d.ts',
           'app/*.ts',
           'app/**/*.ts'],
-    lint: ['app/*.ts',
-          'app/**/*.ts']
+    lint: ['!app/src/scene/*.ts',
+           'app/*.ts',
+           'app/**/*.ts'
+          ]
   },
 
   html : {
