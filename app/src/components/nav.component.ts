@@ -1,4 +1,4 @@
-import { Component, provide, animation, style, animate, state, transition, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, provide, animation, style, animate, state, transition, ChangeDetectorRef, ElementRef, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
         <li class="nav__item" ><a [routerLink]="['/ui']" >ui</a></li>
         <li class="nav__item" ><a [routerLink]="['/music']" >music</a></li>
         <li class="nav__item" ><a [routerLink]="['/webrtc/client']" >webrtc</a></li>
+        <li class="nav__item" ><a [routerLink]="['/remote']" >remote</a></li>
         <li class="nav__item" ><a [routerLink]="['/about']" >about</a></li>
       </ul>
     </nav>
@@ -32,10 +33,14 @@ import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 export class GlobalNav implements OnInit {
   isVisible: boolean;
   ref: ChangeDetectorRef;
-  constructor(router: Router, ref: ChangeDetectorRef) {
+  elem: any;
+  constructor(router: Router, _ref: ChangeDetectorRef, _el: ElementRef) {
     this.isVisible = false;
-    this.ref = ref;
+    this.elem = _el.nativeElement;
+    this.ref = _ref;
     //console.log('Global Nav!', this.isVisible);
+    
+    
   }
   ngOnInit() {
 
@@ -47,4 +52,5 @@ export class GlobalNav implements OnInit {
 
     },100);
   }
+  
 }

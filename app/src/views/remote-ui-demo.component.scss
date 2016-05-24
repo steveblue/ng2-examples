@@ -9,7 +9,7 @@
 }
 
 .scene {
-  display: none;
+  display: block;
   position: absolute;
   top: 0px;
   width: 100%;
@@ -17,69 +17,31 @@
   padding: 0;
   margin: 0;
   z-index: 100;
-  &.is--visible {
-    display: block;
-  }
 }
 
 
 .copy {
-  padding-top: 120px;
-  padding-left: 30px;
-  z-index: 1000;
-  &.is--hidden {
-    display: none;
-  }
+  position: absolute;
+  bottom: 0px;
+  z-index: 500;
+  transform: translateX(30px) translateY(-120px);
+  webkit-font-smoothing: antialiased;
+  backface-visibility: hidden;
 }
 
 .is--hidden {
   display: none;
 }
 
-.button {
-  margin-top: 60px;
-  margin-left: 30px;
-  background: #020202;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  margin-top: 10px;
-  height: 24px;
-  color: rgba(255,255,255,0.3);
-  text-align: center;
-  max-width: 180px;
-  height: 32px;
-  cursor: pointer;
-  padding-top: 4px;
-  font-size: 0.8em;
-  font-family: 'Lato' sans-serif;
-  cursor: pointer;
-  z-index: 1000;
-  &:hover {
-    color: rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.3);
-  }
-  &.is--disabled {
-    cursor: default;
-    color: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.2);
-    &:hover {
-      color: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-  }
+.is--visible {
+  display: block;
 }
 
-input[type='text'] {
-  background: #020202;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  outline: none;
-  margin-top: 10px;
-  height: 24px;
-  min-width: 180px;
-  height: 32px;
-  color: rgba(255,255,255,0.5);
-  &:focus {
-      border: 1px solid rgba(255,255,255,0.2);
-  }
+.button {
+  position: absolute;
+  bottom: 0px;
+  transform: translateX(30px) translateY(-100px);
+  z-index: 500;
+  min-width: 160px;
 }
+

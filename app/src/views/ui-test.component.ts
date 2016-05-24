@@ -9,7 +9,7 @@ import { DataChannel } from '../services/data-channel';
   template: `
   
     <p class="button" (click)="onClick($event)" [ngClass]="{ 'is--disabled' : isConnected }">
-      <span *ngIf="!isConnected"> Open Connection </span>
+      <span *ngIf="!isConnected"> Connect </span>
       <span *ngIf="isConnected"> Connected </span>
     </p>
   

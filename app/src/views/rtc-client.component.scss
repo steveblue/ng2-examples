@@ -9,53 +9,6 @@
 
 p.copy {
   padding-bottom: 40px;
-  font-smoothing: subpixel-antialiased;
+  webkit-font-smoothing: antialiased;
   backface-visibility: hidden;
-
-}
-
-.button {
-  background: #020202;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  margin-top: 10px;
-  height: 24px;
-  color: rgba(255,255,255,0.3);
-  text-align: center;
-  max-width: 180px;
-  height: 32px;
-  cursor: pointer;
-  padding-top: 4px;
-  font-size: 0.8em;
-  font-family: 'Lato' sans-serif;
-  font-smoothing: subpixel-antialiased;
-  backface-visibility: hidden;
-  &:hover {
-    color: rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.3);
-  }
-  &.is--disabled {
-    cursor: default;
-    color: rgba(255,255,255,0.2);
-    border: 1px solid rgba(255,255,255,0.2);
-    &:hover {
-      color: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.2);
-    }
-  }
-}
-
-input[type='text'] {
-  background: #020202;
-  border: 1px solid rgba(255,255,255,0.2);
-  border-radius: 6px;
-  outline: none;
-  margin-top: 10px;
-  height: 24px;
-  min-width: 180px;
-  height: 32px;
-  color: rgba(255,255,255,0.5);
-  &:focus {
-      border: 1px solid rgba(255,255,255,0.2);
-  }
 }

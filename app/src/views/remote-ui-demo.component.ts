@@ -12,10 +12,10 @@ import { TerrainWorld } from '../scene/terrain.scene';
     {{ headline }}
   </h1>
   <p class="button" (click)="onClick($event)" [ngClass]="{ 'is--disabled' : isConnected === true, 'is--hidden' : isConnected === true }">
-    <span *ngIf="!isConnected"> Open Connection </span>
+    <span *ngIf="!isConnected"> Connect </span>
     <span *ngIf="isConnected"> Connected </span>
   </p>
-  <div class="scene" [ngClass]="{ 'is--visible' : isConnected === true }"></div>
+  <div class="scene"></div>
   `,
   styleUrls: ['remote-ui-demo.component.css']
 })
