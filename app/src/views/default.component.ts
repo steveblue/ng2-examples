@@ -5,7 +5,7 @@ import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
   moduleId: module.id,
   template:`
   
-  <h1 @state="isVisible === true ? 'active' : 'hidden'">
+  <h1>
     Angular 2 Examples
   </h1>
   
