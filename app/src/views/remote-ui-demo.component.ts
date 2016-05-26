@@ -1,6 +1,6 @@
 import config from '../conf';
 import { Component, ChangeDetectorRef, ElementRef, OnInit } from '@angular/core';
-import { NgClass } from 'angular2/common';
+import { NgClass } from '@angular/common';
 import { DataChannel } from '../services/data-channel';
 import { TerrainWorld } from '../scene/terrain.scene';
 

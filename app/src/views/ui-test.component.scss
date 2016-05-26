@@ -39,3 +39,10 @@ and (max-device-width : 667px) {
     transform: translateX(30px) translateY(40px);
   }
 }
+
+@media only screen 
+and (min-device-width :668px) { 
+  .button {
+    transform: translateX(60px) translateY(80px);
+  }
+}

@@ -17,6 +17,10 @@ p {
   color: rgba( 255, 255, 255, 0.6);
 }
 
+a:link, a:visited {
+  text-decoration: none;
+}
+
 .button {
  
   background: rgba(200,200,200,0.3);
@@ -27,9 +31,10 @@ p {
   color: rgba(255,255,255,0.3);
   text-align: center;
   max-width: 180px;
-  height: 32px;
+  max-height: 28px;
+  height: 28px;
   cursor: pointer;
-  padding-top: 4px;
+  padding-top: 6px;
   font-size: 0.8em;
   font-family: 'Lato' sans-serif;
   cursor: pointer;

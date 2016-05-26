@@ -44,17 +44,15 @@ gulp.task('ts:lint', function() {
 
 gulp.task('ts:app', function() {
 
-	var tsResult = gulp.src(paths.ts.src)
-                    .pipe(sourcemaps.init())
+	var tsResult = gulp.src(['typings/browser.d.ts', 'app/*.ts', 'app/**/*.ts', '!node_modules/**/*.ts'])
 					.pipe(tsc(tsProject));
    return tsResult.js
-                 .pipe(sourcemaps.write('.'))
-                 .pipe(gulp.dest(tsConfig.outDir));
+                 .pipe(gulp.dest(paths.devDir));
                                   
 //    return merge([
 // 		tsResult.dts.pipe(gulp.dest(tsConfig.outDir)),
 // 		tsResult.js
-//                  .pipe(sourcemaps.write('.'))
+//                  //.pipe(sourcemaps.write('.'))
 //                  .pipe(gulp.dest(tsConfig.outDir))
 // 	]);
 

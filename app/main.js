@@ -18,7 +18,7 @@
     )
     .ready('ALL', function() {
 
-      System.import('system-config.js').then(function () {
+      System.import('./system-config.js').then(function () {
         System.import('./app.js');
       }).catch(console.error.bind(console));
 
