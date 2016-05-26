@@ -1,4 +1,4 @@
-import { Component, animation, style, animate, state, transition, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 
 @Component({
   selector: 'view',
@@ -10,16 +10,7 @@ import { Component, animation, style, animate, state, transition, ChangeDetector
   </h1>
   
   `,
-   styleUrls: ['default.component.css'],
-   animations: [
-    animation('state', [
-      state('void', style({ display: 'none' })),
-      state('active', style({ transform: 'translate3d(0, 0, 0)', opacity: '1' })),
-      state('hidden', style({ transform: 'translate3d(-100%, 0, 0)', opacity: '0' })),
-      transition('active => hidden', [animate('100ms ease-out')]),
-      transition('hidden => active', [animate('100ms ease-out')])
-    ])
-  ]
+   styleUrls: ['default.component.css']
 })
 
 export class Default {
