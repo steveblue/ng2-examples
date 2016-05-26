@@ -1,5 +1,5 @@
 {
-  "name": "ng-amd-boilerplate",
+  "name": "ng2-examples",
   "version": "1.0.0",
   "private": true,
   "description": "A boilerplate that use AMD modules with Angular",
@@ -16,11 +16,6 @@
   "repository": {
     "type": "git",
     "url": ""
-  },
-  "scripts": {
-    "postinstall": [
-      "node_modules/.bin/bower install"
-    ]
   },
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",
