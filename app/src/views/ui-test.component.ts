@@ -3,6 +3,8 @@ import { Component, OnInit, EventEmitter, ElementRef } from '@angular/core';
 import { SliderComponent } from '../components/slider.component';
 import { DataChannel } from '../services/data-channel';
 
+declare let module: any;
+
 @Component({
   selector: 'view',
   moduleId: module.id,

@@ -3,6 +3,8 @@ import { MediaService } from '../services/media-service';
 import { Meter } from '../models/meter';
 
 declare let d3:any;
+declare let module: any;
+
 
 @Component({
 selector: 'waveform-monitor',

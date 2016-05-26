@@ -4,6 +4,8 @@ import { Media } from "../schema/media";
 import { TrackList } from "../components/track-list.component";
 import { AudioPlayer } from "../components/audio-player.component";
 
+declare let module: any;
+
 
 @Component({
   selector: 'view',

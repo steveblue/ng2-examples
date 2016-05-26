@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { MediaService } from '../services/media-service';
 import { WaveformComponent } from './waveform.component';
 
+declare let module: any;
+
 @Component({
 selector: 'audio-player',
 template: `

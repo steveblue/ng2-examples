@@ -1,6 +1,7 @@
 import {Component, EventEmitter, ElementRef, ChangeDetectorRef, Input, OnInit} from '@angular/core';
-
 import {DraggableDirective} from '../directives/draggable.directive';
+
+declare let module: any;
 
 @Component({
   selector: 'slider',

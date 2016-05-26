@@ -1,3 +1,5 @@
+///<reference path="../node_modules/angular2/typings/browser.d.ts"/>
+
 import { Component, provide, ElementRef } from '@angular/core';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
@@ -11,6 +13,8 @@ import { UIComponentTest } from './src/views/ui-test.component';
 import { DataChannelClient } from './src/views/rtc-client.component';
 import { RemoteUIDemo } from './src/views/remote-ui-demo.component';
 import { GlobalNav } from './src/components/nav.component';
+
+declare let module: any;
 
 // console.log(About);
 

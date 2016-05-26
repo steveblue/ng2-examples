@@ -1,6 +1,9 @@
 import { Component, provide, ChangeDetectorRef, ElementRef, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
 
+declare let module: any;
+
+
 @Component({
   selector: 'global-nav',
   template:`

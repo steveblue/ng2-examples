@@ -3,6 +3,8 @@ import { Component, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { DataChannel } from '../services/data-channel';
 import {NgClass} from '@angular/common';
 
+declare let module: any;
+
 @Component({
   selector: 'view',
   moduleId: module.id,

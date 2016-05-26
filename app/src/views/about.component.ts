@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+declare let module: any;
+
 
 @Component({
   selector: 'view',

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output, ElementRef, OnInit } from '@angular/core';
-
 import { Media } from "../schema/media";
 import { TrackItem } from './track-item.component';
+
+declare let module: any;
 
 
 @Component({

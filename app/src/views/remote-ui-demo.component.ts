@@ -4,6 +4,8 @@ import { NgClass } from '@angular/common';
 import { DataChannel } from '../services/data-channel';
 import { TerrainWorld } from '../scene/terrain.scene';
 
+declare let module: any;
+
 @Component({
   selector: 'view',
   moduleId: module.id,

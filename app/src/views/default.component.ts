@@ -1,4 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
+declare let module: any;
 
 @Component({
   selector: 'view',
